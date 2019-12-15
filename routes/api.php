@@ -24,4 +24,10 @@ Route::group([
      */
     Route::post('/register', 'AuthController@register');
 
+    Route::group(['middleware' => ['auth:api']], function() {
+
+        Route::get('/me', 'MeController@me');
+
+    });
+
 });
