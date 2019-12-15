@@ -14,7 +14,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        // Register repos specific for your system
+        $this->registerRepos();
     }
 
     /**
@@ -26,4 +27,18 @@ class AppServiceProvider extends ServiceProvider
     {
         Passport::routes();
     }
+
+    /**
+     * Register specific repos for this system
+     *
+     * @return void
+     */
+    public function registerRepos() {
+        // Put your repos in here
+        $this->app->bind(
+            'App\Repositories\Interfaces\UserRepoInterface',
+            'App\Repositories\UserRepo'
+        );
+    }
+
 }
