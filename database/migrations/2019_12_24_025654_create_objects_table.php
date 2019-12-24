@@ -13,7 +13,7 @@ class CreateObjectsTable extends Migration
      */
     public function up()
     {
-        Schema::create('objects', function (Blueprint $table) {
+        Schema::create('types', function (Blueprint $table) {
             $table->string('id')->unique();
             $table->string('type');
             $table->timestamps();
@@ -27,6 +27,6 @@ class CreateObjectsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('objects');
+        Schema::dropIfExists('types');
     }
 }

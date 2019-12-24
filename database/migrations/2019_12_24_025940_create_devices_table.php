@@ -21,10 +21,10 @@ class CreateDevicesTable extends Migration
             $table->decimal('longitude');
             $table->decimal('altitude');
 
-            $table->string('object_id');
-            $table->foreign('object_id')
+            $table->string('type_id');
+            $table->foreign('type_id')
                 ->references('id')
-                ->on('objects')
+                ->on('types')
                 ->onDelete('cascade');
 
             $table->unsignedBigInteger('user_id');

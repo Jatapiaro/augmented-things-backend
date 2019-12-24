@@ -33,7 +33,7 @@ use Laravel\Passport\HasApiTokens;
  * ),
  * @OA\Property(
  *     type="integer",
- *     description="Id of the client fromt which this user is being registered",
+ *     description="Id of the client from which this user is being registered",
  *     property="client_id"
  * ),
  * @OA\Property(
