@@ -10,7 +10,7 @@ class ParticleService {
      */
     public function mirror($email) {
         $client = new Client();
-        $productUrl = env('PARTICLE_PHOTON_PRODUCT_URL') . 'customers';
+        $productUrl = env('PARTICLE_PHOTON_PRODUCT_URL') . '/customers';
         $clientId = env('PARTICLE_PHOTON_PRODUCT_ID');
         $clientSecret = env('PARTICLE_PHOTON_PRODUCT_SECRET');
         $response = $client->post($productUrl, [

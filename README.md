@@ -33,7 +33,7 @@ $ npm install -g yarn
 
 7. Install the node dependencies
 ```shell
-$ yarn install install
+$ yarn install
 ```
 
 8. Generate the artisan keys
@@ -41,15 +41,15 @@ $ yarn install install
 $ php artisan key:generate
 ```
 
-9. Install passport
-```shell
-$ php artisan passport:install
-```
-
-10. Execute the migrations and the _seeds_
+9. Execute the migrations and the _seeds_
 ```shell
 $ php artisan migrate
 $ php artisan db:seed
+```
+
+10. Install passport
+```shell
+$ php artisan passport:install
 ```
 
 ## Testing
