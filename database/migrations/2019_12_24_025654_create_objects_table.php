@@ -16,6 +16,7 @@ class CreateObjectsTable extends Migration
         Schema::create('types', function (Blueprint $table) {
             $table->string('id')->unique();
             $table->string('type');
+            $table->boolean('used')->default(false);
             $table->timestamps();
         });
     }

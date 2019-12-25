@@ -36,6 +36,10 @@ class AppServiceProvider extends ServiceProvider
     public function registerRepos() {
         // Put your repos in here
         $this->app->bind(
+            'App\Repositories\Interfaces\DeviceRepoInterface',
+            'App\Repositories\DeviceRepo'
+        );
+        $this->app->bind(
             'App\Repositories\Interfaces\UserRepoInterface',
             'App\Repositories\UserRepo'
         );

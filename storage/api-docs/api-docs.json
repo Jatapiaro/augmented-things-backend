@@ -62,6 +62,94 @@
                 ]
             }
         },
+        "/api/v1/devices": {
+            "get": {
+                "tags": [
+                    "Devices"
+                ],
+                "summary": "Shows the user devices",
+                "responses": {
+                    "200": {
+                        "description": "Shows the current user devices",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "passport": [
+                            "*"
+                        ]
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Devices"
+                ],
+                "summary": "Register a new device",
+                "requestBody": {
+                    "description": "Device that needs to be stored",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "device": {
+                                        "type": "object",
+                                        "$ref": "#/components/schemas/Device"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Device that was registered.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "passport": [
+                            "*"
+                        ]
+                    }
+                ]
+            }
+        },
         "/api/v1/me": {
             "get": {
                 "tags": [
@@ -102,6 +190,75 @@
     },
     "components": {
         "schemas": {
+            "Device": {
+                "title": "Device",
+                "description": "Devices registered by the user in the system",
+                "required": [
+                    "id",
+                    "name",
+                    "latitude",
+                    "longitude",
+                    "altitude",
+                    "type_id",
+                    "user_id"
+                ],
+                "properties": {
+                    "name": {
+                        "schema": "Device",
+                        "description": "Name of the device",
+                        "type": "string"
+                    },
+                    "latitude": {
+                        "schema": "Device",
+                        "description": "Latitude of the device (coordinates)",
+                        "type": "number",
+                        "example": "19.4284700"
+                    },
+                    "longitude": {
+                        "schema": "Device",
+                        "description": "Longitude of the device (coordinates)",
+                        "type": "number",
+                        "example": "-99.1276600"
+                    },
+                    "altitude": {
+                        "schema": "Device",
+                        "description": "Altitude of the device (coordinates)",
+                        "type": "number"
+                    },
+                    "type_id": {
+                        "schema": "Device",
+                        "description": "Reference to the valid device",
+                        "type": "integer"
+                    },
+                    "user_id": {
+                        "schema": "Device",
+                        "description": "Id of the owner",
+                        "type": "integer"
+                    }
+                },
+                "type": "object"
+            },
+            "Type": {
+                "title": "Type",
+                "description": "Types of valid devices and his types on the system",
+                "required": [
+                    "id",
+                    "type"
+                ],
+                "properties": {
+                    "id": {
+                        "schema": "Type",
+                        "description": "ID of the particle device",
+                        "type": "string"
+                    },
+                    "type": {
+                        "schema": "Type",
+                        "description": "Type of device",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
             "User": {
                 "title": "User",
                 "description": "user model",
@@ -117,34 +274,40 @@
                     "name": {
                         "schema": "User",
                         "description": "Name of the user",
-                        "type": "string"
+                        "type": "string",
+                        "example": "John Doe"
                     },
                     "email": {
                         "schema": "User",
                         "description": "Email of the user",
-                        "type": "string"
+                        "type": "string",
+                        "example": "test@test.com"
                     },
                     "password": {
                         "schema": "User",
                         "description": "Password of the user",
                         "type": "string",
-                        "format": "password"
+                        "format": "password",
+                        "example": "password"
                     },
                     "password_confirmation": {
                         "schema": "User",
                         "description": "Password confirmarion of the user",
                         "type": "string",
-                        "format": "password"
+                        "format": "password",
+                        "example": "password"
                     },
                     "client_id": {
                         "schema": "User",
-                        "description": "Id of the client fromt which this user is being registered",
-                        "type": "integer"
+                        "description": "Id of the client from which this user is being registered",
+                        "type": "integer",
+                        "example": "1"
                     },
                     "client_secret": {
                         "schema": "User",
                         "description": "Secret key of the client id",
-                        "type": "string"
+                        "type": "string",
+                        "example": "2h37cn2028ebncsw92173bc91"
                     }
                 },
                 "type": "object"
@@ -171,6 +334,10 @@
         {
             "name": "User registration",
             "description": "Operations for the user registration"
+        },
+        {
+            "name": "Devices",
+            "description": "Operations related with the user devices"
         },
         {
             "name": "Profile",

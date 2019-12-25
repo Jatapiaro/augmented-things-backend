@@ -12,34 +12,40 @@ use Laravel\Passport\HasApiTokens;
  * @OA\Property(
  *     type="string",
  *     description="Name of the user",
- *     property="name"
+ *     property="name",
+ *     example="John Doe"
  * ),
  * @OA\Property(
  *     type="string",
  *     description="Email of the user",
- *     property="email"
+ *     property="email",
+ *     example="test@test.com"
  * ),
  * @OA\Property(
  *     type="string",
  *     description="Password of the user",
  *     property="password",
- *     format="password"
+ *     format="password",
+ *     example="password"
  * ),
  * @OA\Property(
  *     type="string",
  *     description="Password confirmarion of the user",
  *     property="password_confirmation",
- *     format="password"
+ *     format="password",
+ *     example="password"
  * ),
  * @OA\Property(
  *     type="integer",
  *     description="Id of the client from which this user is being registered",
- *     property="client_id"
+ *     property="client_id",
+ *     example="1"
  * ),
  * @OA\Property(
  *     type="string",
  *     description="Secret key of the client id",
  *     property="client_secret",
+ *     example="2h37cn2028ebncsw92173bc91"
  * )
  */
 class User extends Authenticatable
@@ -52,7 +58,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'mirrored'
     ];
 
     /**
@@ -72,6 +78,15 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * Relationship between the user and his devices
+     *
+     * @return App\Models\Device
+     */
+    public function devices() {
+        return $this->hasMany('App\Models\Device');
+    }
 
     /**
      * Returns an array that contains two indexes:

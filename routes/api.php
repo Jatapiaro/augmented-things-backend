@@ -28,6 +28,8 @@ Route::group([
 
         Route::get('/me', 'MeController@me');
 
+        Route::apiResource('/devices', 'DeviceController');
+
     });
 
 });
