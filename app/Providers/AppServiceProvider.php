@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Laravel\Passport\Passport;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -13,7 +14,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        // Register repos specific for your system
+        $this->registerRepos();
     }
 
     /**
@@ -23,6 +25,24 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Passport::routes();
     }
+
+    /**
+     * Register specific repos for this system
+     *
+     * @return void
+     */
+    public function registerRepos() {
+        // Put your repos in here
+        $this->app->bind(
+            'App\Repositories\Interfaces\DeviceRepoInterface',
+            'App\Repositories\DeviceRepo'
+        );
+        $this->app->bind(
+            'App\Repositories\Interfaces\UserRepoInterface',
+            'App\Repositories\UserRepo'
+        );
+    }
+
 }
