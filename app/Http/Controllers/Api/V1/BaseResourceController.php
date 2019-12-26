@@ -53,16 +53,23 @@ class BaseResourceController extends BaseController implements ResourcesControll
     /**
      * Array of except during validation
      *
-     * @var string
+     * @var array
      */
     protected $exceptArray;
 
     /**
      * Array of append during validation
      *
-     * @var string
+     * @var array
      */
     protected $appendArray;
+
+    /**
+     * Class (as a string) to be used as a JsonResource
+     *
+     * @var string
+     */
+    protected $jsonResource;
 
     /**
      * Display a listing of the resource.
@@ -70,7 +77,7 @@ class BaseResourceController extends BaseController implements ResourcesControll
      * @return \Illuminate\Http\Response
      */
     public function index(Request $req) {
-        return $this->repo->all();
+        return $this->toJsonResource($this->repo->all(), true);
     }
 
     /**
@@ -82,7 +89,7 @@ class BaseResourceController extends BaseController implements ResourcesControll
     public function store(Request $req) {
         $data = $this->validateRequest($req);
         $item = $this->service->store($data);
-        return $item;
+        return $this->toJsonResource($item);
     }
 
     /**
@@ -149,4 +156,21 @@ class BaseResourceController extends BaseController implements ResourcesControll
         $input = $req->validate($vb['rules'], $vb['messages']);
         return $input;
     }
+
+    /**
+     * Converts the data to a json resource
+     *
+     * @param mixed $data
+     * @return Illuminate\Http\Resources\Json\Resource
+     */
+    private function toJsonResource($data, $collection = false) {
+        if ( $collection ) {
+            return call_user_func(
+                $this->jsonResource .'::Collection',
+                $data
+            );
+        }
+        return new $this->jsonResource($data);
+    }
+
 }

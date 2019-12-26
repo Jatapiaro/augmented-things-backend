@@ -199,8 +199,7 @@
                     "latitude",
                     "longitude",
                     "altitude",
-                    "type_id",
-                    "user_id"
+                    "type_id"
                 ],
                 "properties": {
                     "name": {
@@ -228,12 +227,8 @@
                     "type_id": {
                         "schema": "Device",
                         "description": "Reference to the valid device",
-                        "type": "integer"
-                    },
-                    "user_id": {
-                        "schema": "Device",
-                        "description": "Id of the owner",
-                        "type": "integer"
+                        "type": "string",
+                        "example": "350043001147343438323536"
                     }
                 },
                 "type": "object"

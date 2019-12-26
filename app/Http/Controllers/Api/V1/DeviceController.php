@@ -9,8 +9,6 @@ use App\Repositories\Interfaces\DeviceRepoInterface;
 use App\Services\DeviceService;
 use App\Models\Device;
 
-use App\Http\Resources\Device as DeviceResource;
-
 /**
  * @OA\Tag(
  *     name="Devices",
@@ -63,16 +61,23 @@ class DeviceController extends BaseResourceController {
     /**
      * Array of except during validation
      *
-     * @var string
+     * @var array
      */
     protected $exceptArray;
 
     /**
      * Array of append during validation
      *
-     * @var string
+     * @var array
      */
     protected $appendArray;
+
+    /**
+     * Class (as a string) to be used as a JsonResource
+     *
+     * @var string
+     */
+    protected $jsonResource;
 
     public function __construct(DeviceRepoInterface $repo,
         DeviceService $service,
@@ -86,6 +91,7 @@ class DeviceController extends BaseResourceController {
         $this->model = $model;
 
         $this->exceptArray = $this->appendArray = [];
+        $this->jsonResource = 'App\Http\Resources\Device';
     }
 
     /**
@@ -117,8 +123,7 @@ class DeviceController extends BaseResourceController {
      */
     public function index(Request $req)
     {
-        $data = parent::index($req);
-        return $this->toJsonResource($data, true);
+        return parent::index($req);
     }
 
     /**
@@ -161,15 +166,7 @@ class DeviceController extends BaseResourceController {
     */
     public function store(Request $req) {
         $this->exceptArray = ['device.user_id'];
-        $item = parent::store($req);
-        return $this->toJsonResource($item);
-    }
-
-    private function toJsonResource($data, $collection = false) {
-        if ( $collection ) {
-            return DeviceResource::collection($data);
-        }
-        return new DeviceResource($data);
+        return parent::store($req);
     }
 
 }

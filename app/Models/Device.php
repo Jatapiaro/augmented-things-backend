@@ -28,7 +28,7 @@ use Illuminate\Database\Eloquent\Model;
  *     property="altitude"
  * ),
  * @OA\Property(
- *     type="integer",
+ *     type="string",
  *     description="Reference to the valid device",
  *     property="type_id",
  *     example="350043001147343438323536"
