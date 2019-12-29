@@ -28,7 +28,15 @@ Route::group([
 
         Route::get('/me', 'MeController@me');
 
+        /**
+         * Devices Routes
+         */
         Route::apiResource('/devices', 'DeviceController');
+
+        /**
+         * Places Routes
+         */
+        Route::apiResource('/places', 'PlaceController');
 
     });
 

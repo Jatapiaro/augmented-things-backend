@@ -4,7 +4,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * @OA\Schema(type="object", title="Device", description="Devices registered by the user in the system", required={"id", "name", "latitude", "longitude", "altitude", "type_id"})
+ * @OA\Schema(type="object", title="Device", description="Devices registered by the user in the system", required={"name", "latitude", "longitude", "altitude", "type_id", "device_id"})
  * @OA\Property(
  *     type="string",
  *     description="Name of the device",
@@ -32,6 +32,12 @@ use Illuminate\Database\Eloquent\Model;
  *     description="Reference to the valid device",
  *     property="type_id",
  *     example="350043001147343438323536"
+ * ),
+ * @OA\Property(
+ *     type="number",
+ *     description="Reference of a valid place",
+ *     property="place_id",
+ *     example="1"
  * )
  */
 class Device extends Model
@@ -44,8 +50,16 @@ class Device extends Model
      */
     protected $fillable = [
         'name', 'latitude', 'longitude',
-        'altitude', 'type_id', 'user_id'
+        'altitude', 'type_id', 'user_id',
+        'place_id'
     ];
+
+    /**
+     * Declares the relationship between this device and his place
+     */
+    public function place() {
+        return $this->belongsTo('App\Models\Place');
+    }
 
     /**
      * Declares the relationship between this device and his type
@@ -76,6 +90,7 @@ class Device extends Model
             ),
             'device.altitude' => 'required|numeric',
             'device.type_id' => 'required|exists:types,id,used,0',
+            'device.place_id' => 'required|exists:places,id',
             'device.user_id' => 'required|exists:users,id'
         ];
         $book['messages'] = [
@@ -93,6 +108,9 @@ class Device extends Model
 
             'device.type_id.required' => 'Se requiere el dispositivo del dispositivo',
             'device.type_id.exists' => 'El dispositivo debe ser de un tipo válido',
+
+            'device.place_id.required' => 'Se requiere el lugar del dispositivo',
+            'device.place_id.exists' => 'El lugar del dispositivo debe ser un lugar válido',
 
             'device.user_id.required' => 'Se requiere el usuario del dispositivo',
             'device.user_id.exists' => 'El usuario del dispositivo debe ser un usuario válido'

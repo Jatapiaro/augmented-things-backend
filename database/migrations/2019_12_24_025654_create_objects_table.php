@@ -19,6 +19,22 @@ class CreateObjectsTable extends Migration
             $table->boolean('used')->default(false);
             $table->timestamps();
         });
+
+        Schema::create('places', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('name');
+            $table->decimal('latitude');
+            $table->decimal('longitude');
+            $table->decimal('altitude');
+
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users')
+                ->onDelete('cascade');
+
+            $table->timestamps();
+        });
     }
 
     /**
@@ -29,5 +45,6 @@ class CreateObjectsTable extends Migration
     public function down()
     {
         Schema::dropIfExists('types');
+        Schema::dropIfExists('places');
     }
 }

@@ -40,6 +40,10 @@ class AppServiceProvider extends ServiceProvider
             'App\Repositories\DeviceRepo'
         );
         $this->app->bind(
+            'App\Repositories\Interfaces\PlaceRepoInterface',
+            'App\Repositories\PlaceRepo'
+        );
+        $this->app->bind(
             'App\Repositories\Interfaces\UserRepoInterface',
             'App\Repositories\UserRepo'
         );

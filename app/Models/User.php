@@ -39,13 +39,13 @@ use Laravel\Passport\HasApiTokens;
  *     type="integer",
  *     description="Id of the client from which this user is being registered",
  *     property="client_id",
- *     example="1"
+ *     example="2"
  * ),
  * @OA\Property(
  *     type="string",
  *     description="Secret key of the client id",
  *     property="client_secret",
- *     example="2h37cn2028ebncsw92173bc91"
+ *     example="WxqvsSsx0IPUkNybr7q2wdN6LI6hweujSNgLCurK"
  * )
  */
 class User extends Authenticatable
