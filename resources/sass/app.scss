@@ -6,3 +6,11 @@
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+
+// Libraries
+@import '~tabler-react/dist/Tabler.css';
+@import '~font-awesome/css/font-awesome.css';
+
+// Components
+@import './components/layout/header';
+@import './components/layout/menu';

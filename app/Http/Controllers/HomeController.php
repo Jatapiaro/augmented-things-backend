@@ -17,12 +17,17 @@ class HomeController extends Controller
     }
 
     /**
-     * Show the application dashboard.
+     * Show the application.
      *
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function __invoke()
     {
+        /*\JavaScript::put([
+            'user' => json_encode(new UserResource(Auth::user())),
+            'routes' => json_encode($routes),
+            'baseUrl' => config('app.url')
+		]);*/
         return view('home');
     }
 }
