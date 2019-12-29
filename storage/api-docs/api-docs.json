@@ -286,7 +286,8 @@
                     "latitude",
                     "longitude",
                     "altitude",
-                    "type_id"
+                    "type_id",
+                    "device_id"
                 ],
                 "properties": {
                     "name": {
@@ -316,6 +317,12 @@
                         "description": "Reference to the valid device",
                         "type": "string",
                         "example": "350043001147343438323536"
+                    },
+                    "place_id": {
+                        "schema": "Device",
+                        "description": "Reference of a valid place",
+                        "type": "number",
+                        "example": "1"
                     }
                 },
                 "type": "object"
@@ -418,13 +425,13 @@
                         "schema": "User",
                         "description": "Id of the client from which this user is being registered",
                         "type": "integer",
-                        "example": "1"
+                        "example": "2"
                     },
                     "client_secret": {
                         "schema": "User",
                         "description": "Secret key of the client id",
                         "type": "string",
-                        "example": "2h37cn2028ebncsw92173bc91"
+                        "example": "WxqvsSsx0IPUkNybr7q2wdN6LI6hweujSNgLCurK"
                     }
                 },
                 "type": "object"

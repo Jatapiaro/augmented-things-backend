@@ -16,6 +16,7 @@ class Device extends JsonResource
     public function toArray($request)
     {
         $data = parent::toArray($request);
+        $data['place'] = $this->place->name;
         $data['type'] = new TypeResource($this->type);
         return $data;
     }
