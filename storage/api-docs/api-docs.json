@@ -186,6 +186,94 @@
                     }
                 ]
             }
+        },
+        "/api/v1/places": {
+            "get": {
+                "tags": [
+                    "Places"
+                ],
+                "summary": "Shows the user places",
+                "responses": {
+                    "200": {
+                        "description": "Shows the current user places",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "passport": [
+                            "*"
+                        ]
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Places"
+                ],
+                "summary": "Register a new place",
+                "requestBody": {
+                    "description": "Place that needs to be stored",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "place": {
+                                        "type": "object",
+                                        "$ref": "#/components/schemas/Place"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Device that was registered.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "passport": [
+                            "*"
+                        ]
+                    }
+                ]
+            }
         }
     },
     "components": {
@@ -194,7 +282,6 @@
                 "title": "Device",
                 "description": "Devices registered by the user in the system",
                 "required": [
-                    "id",
                     "name",
                     "latitude",
                     "longitude",
@@ -229,6 +316,41 @@
                         "description": "Reference to the valid device",
                         "type": "string",
                         "example": "350043001147343438323536"
+                    }
+                },
+                "type": "object"
+            },
+            "Place": {
+                "title": "Places",
+                "description": "Places registered by the user",
+                "required": [
+                    "name",
+                    "latitude",
+                    "longitude",
+                    "altitude"
+                ],
+                "properties": {
+                    "name": {
+                        "schema": "Place",
+                        "description": "Name of the place",
+                        "type": "string"
+                    },
+                    "latitude": {
+                        "schema": "Place",
+                        "description": "Latitude of the place (coordinates)",
+                        "type": "number",
+                        "example": "19.4284700"
+                    },
+                    "longitude": {
+                        "schema": "Place",
+                        "description": "Longitude of the place (coordinates)",
+                        "type": "number",
+                        "example": "-99.1276600"
+                    },
+                    "altitude": {
+                        "schema": "Place",
+                        "description": "Altitude of the place (coordinates)",
+                        "type": "number"
                     }
                 },
                 "type": "object"
@@ -337,6 +459,10 @@
         {
             "name": "Profile",
             "description": "Operations related to the user profile"
+        },
+        {
+            "name": "Places",
+            "description": "Operations related with the user places"
         }
     ]
 }

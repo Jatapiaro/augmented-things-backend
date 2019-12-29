@@ -4,7 +4,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * @OA\Schema(type="object", title="Device", description="Devices registered by the user in the system", required={"id", "name", "latitude", "longitude", "altitude", "type_id"})
+ * @OA\Schema(type="object", title="Device", description="Devices registered by the user in the system", required={"name", "latitude", "longitude", "altitude", "type_id"})
  * @OA\Property(
  *     type="string",
  *     description="Name of the device",

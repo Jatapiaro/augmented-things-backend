@@ -95,7 +95,7 @@ class AuthController extends BaseController {
         $password = $data["user"]["password"];
         $clientId = $data["user"]["client_id"];
         $clientSecret = $data["user"]["client_secret"];
-        // If validation passes, create user
+        // If validation passes, create the user
         $user = $this->service->store($data);
         $request->request->add([
             'grant_type'    => 'password',
