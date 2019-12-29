@@ -8,6 +8,9 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
+// Services
+use App\Services\ParticleService;
+
 class RegisterController extends Controller
 {
     /*
@@ -31,13 +34,21 @@ class RegisterController extends Controller
     protected $redirectTo = '/home';
 
     /**
+     * Service
+     *
+     * @var ParticleService
+     */
+    private $particleService;
+
+    /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(ParticleService $particleService)
     {
         $this->middleware('guest');
+        $this->particleService = $particleService;
     }
 
     /**
@@ -63,6 +74,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $this->particleService->mirror($data['email']);
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],

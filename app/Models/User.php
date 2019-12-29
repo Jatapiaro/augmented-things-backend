@@ -45,7 +45,7 @@ use Laravel\Passport\HasApiTokens;
  *     type="string",
  *     description="Secret key of the client id",
  *     property="client_secret",
- *     example="WxqvsSsx0IPUkNybr7q2wdN6LI6hweujSNgLCurK"
+ *     example="8B3voLCXrABoDGMmhDMig7topVVc8bqvocW1uF1r"
  * )
  */
 class User extends Authenticatable
@@ -58,7 +58,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'mirrored'
+        'name', 'email', 'password'
     ];
 
     /**

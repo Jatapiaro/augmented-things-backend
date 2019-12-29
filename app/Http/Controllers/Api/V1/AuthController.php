@@ -90,7 +90,6 @@ class AuthController extends BaseController {
         $vb = User::ValidationBook();
         $vb["rules"]["user.client_secret"] .= $request->input("user")["client_id"];
         $data = $request->validate($vb["rules"], $vb["messages"]);
-        $data["user"]["mirrored"] = true;
         // Neccesary data to get a token at registration
         $password = $data["user"]["password"];
         $clientId = $data["user"]["client_id"];

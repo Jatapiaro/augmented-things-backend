@@ -19,8 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->boolean('admin')->default(false);
-            $table->boolean('mirrored')->default(false);
+            $table->boolean('superuser')->default(false);
             $table->rememberToken();
             $table->timestamps();
         });

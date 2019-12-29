@@ -22,7 +22,7 @@ class UserService {
      */
     private $repo;
     /**
-     * Repository
+     * Service
      *
      * @var ParticleService
      */

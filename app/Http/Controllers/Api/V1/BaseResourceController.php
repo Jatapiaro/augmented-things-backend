@@ -113,13 +113,13 @@ class BaseResourceController extends BaseController implements ResourcesControll
      * @return \Illuminate\Http\Response
      */
     public function update(Request $req, $id) {
-        $input = $this->validateRequest($req);
+        /*$input = $this->validateRequest($req);
         $data = [];
         $data[$this->resource] = $this->repo->find($id);
         $this->service->update($input, $data[$this->resource]);
         return redirect()
             ->route($this->resourcePlural.'.edit', ['id' => $id])
-            ->with('status', 'El '.$this->resourceLocal.' se ha editado con éxito.');
+            ->with('status', 'El '.$this->resourceLocal.' se ha editado con éxito.');*/
     }
 
     /**
@@ -130,10 +130,10 @@ class BaseResourceController extends BaseController implements ResourcesControll
      * @return \Illuminate\Http\Response
      */
     public function destroy(Request $req, $id) {
-        $this->repo->delete($id);
+        /*$this->repo->delete($id);
         return redirect()
             ->route('app.' . $this->resourcePlural. '.index')
-            ->with('status', 'El '.$this->resourceLocal.' se ha eliminado con éxito.');
+            ->with('status', 'El '.$this->resourceLocal.' se ha eliminado con éxito.');*/
     }
 
     /**
