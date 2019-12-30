@@ -19,6 +19,11 @@ export default class Layout extends Component {
                 'fa fa-object-group',
                 '/types',
                 true),
+            new NavLink(
+                ' Lugares',
+                'fa fa-home',
+                '/places',
+                true),
         ];
     }
 

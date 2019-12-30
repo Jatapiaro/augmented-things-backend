@@ -37,11 +37,17 @@ Route::group([
          * Places Routes
          */
         Route::apiResource('/places', 'PlaceController');
+        Route::get('/admin-places', 'PlaceController@adminIndex')->name('places.index.admin');
 
         /**
          * Types Routes
          */
         Route::apiResource('/types', 'TypeController');
+
+        /**
+         * Users Routes
+         */
+        Route::apiResource('/users', 'UserController');
 
     });
 

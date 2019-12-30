@@ -1,26 +1,25 @@
 import React, { Component } from 'react';
 import Card from '../../Components/ApplicationCard';
 import { Dropdown, Table } from 'tabler-react';
-import TYPES from './TypeTransformer';
 
 export default class Index extends Component {
 
     state = {
-        types: []
+        places: []
     }
 
     constructor(props) {
         super(props);
         this.columns = [
-            'ID', 'Tipo', 'Status', ''
+            'ID', 'Nombre', 'Dueño', ''
         ];
     }
 
     componentWillMount() {
-        this.props.typeService.index()
+        this.props.placeService.index()
             .then(res => {
                 this.setState({
-                    types: res
+                    places: res
                 });
             })
             .catch(err => {
@@ -30,12 +29,12 @@ export default class Index extends Component {
 
     render() {
         return (
-            <Card title="Dispositivos válidos" redirectLink="/admin/types/create">
+            <Card title="Lugares" redirectLink="/admin/places/create">
                 <Table>
                     <Table.Header>
                         {
                             this.columns.map((col, index) =>
-                                <Table.ColHeader key={`type-header-${index}`}>
+                                <Table.ColHeader key={`place-header-${index}`}>
                                     {col}
                                 </Table.ColHeader>
                             )
@@ -43,20 +42,16 @@ export default class Index extends Component {
                     </Table.Header>
                     <Table.Body>
                         {
-                            this.state.types.map((type, index) =>
-                                <Table.Row key={`type-row-${index}`}>
+                            this.state.places.map((place, index) =>
+                                <Table.Row key={`place-row-${index}`}>
                                     <Table.Col>
-                                        {type.id}
+                                        {place.id}
                                     </Table.Col>
                                     <Table.Col>
-                                        {
-                                            TYPES[type.type]
-                                            ? TYPES[type.type]
-                                            : type.type
-                                        }
+                                        {place.name}
                                     </Table.Col>
                                     <Table.Col>
-                                        {type.used? 'Usado' : 'Disponible'}
+                                        {`${place.user.name} (${place.user.id})`}
                                     </Table.Col>
                                     <Table.Col>
                                         <Dropdown
@@ -67,7 +62,7 @@ export default class Index extends Component {
                                                 <Dropdown.Item
                                                     key={1}
                                                     onClick={
-                                                        () => this.props.history.push(`/admin/types/${type.id}/edit`)
+                                                        () => this.props.history.push(`/admin/places/${place.id}/edit`)
                                                     }>
                                                     <i className="fa fa-pencil" />
                                                     <span> Editar</span>

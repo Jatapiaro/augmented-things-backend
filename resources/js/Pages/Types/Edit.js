@@ -6,7 +6,7 @@ import TypeForm from '../../Components/Forms/TypeForm';
 
 import { toast } from 'react-toastify';
 
-export default class Index extends Component {
+export default class Edit extends Component {
 
     state = {
         type: new Type(),
@@ -93,7 +93,7 @@ export default class Index extends Component {
     render() {
         return (
             <Form onSubmit={this.handleSubmit}>
-                <Card title="Dispositivos Válidos" submit={true} formSubmitButtonText="Crear Tipo">
+                <Card title="Editar dispositivo válido" submit={true} formSubmitButtonText="Editar tipo">
                     <TypeForm
                         type={this.state.type}
                         getError={this.getError}

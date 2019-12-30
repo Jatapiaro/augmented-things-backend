@@ -5,19 +5,19 @@ namespace App\Http\Controllers\Api\V1;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Api\V1\BaseResourceController;
 
-use App\Repositories\Interfaces\DeviceRepoInterface;
-use App\Services\DeviceService;
-use App\Models\Device;
+use App\Repositories\Interfaces\UserRepoInterface;
+use App\Services\UserService;
+use App\Models\User;
 
 use Auth;
 
 /**
  * @OA\Tag(
- *     name="Devices",
- *     description="Operations related with the user devices",
+ *     name="Users",
+ *     description="Operations related with the users of the system",
  * )
  */
-class DeviceController extends BaseResourceController {
+class UserController extends BaseResourceController {
 
     /**
      * Repository of this resource
@@ -88,30 +88,30 @@ class DeviceController extends BaseResourceController {
      */
     protected $extraData;
 
-    public function __construct(DeviceRepoInterface $repo,
-        DeviceService $service,
-        Device $model)
+    public function __construct(UserRepoInterface $repo,
+        UserService $service,
+        User $model)
     {
         $this->repo = $repo;
         $this->service = $service;
-        $this->resource = 'device';
+        $this->resource = 'user';
         $this->pluralizeResouce();
-        $this->resourceLocal = 'Dispositivo';
+        $this->resourceLocal = 'Usuario';
         $this->model = $model;
 
         $this->exceptArray = $this->appendArray = $this->extraData = [];
-        $this->jsonResource = 'App\Http\Resources\Device';
+        $this->jsonResource = 'App\Http\Resources\User';
     }
 
     /**
     * @OA\Get(
-    *     path="/api/v1/devices",
-    *     summary="Shows the user devices",
-    *     tags={"Devices"},
+    *     path="/api/v1/users",
+    *     summary="Shows the users of the system",
+    *     tags={"Users"},
     *     security={{"passport": {"*"}}},
     *     @OA\Response(
     *         response=200,
-    *         description="Shows the current user devices",
+    *         description="Shows the current users of the system",
     *         @OA\JsonContent(
     *             type="object"
     *         ),
@@ -133,56 +133,6 @@ class DeviceController extends BaseResourceController {
     public function index(Request $req)
     {
         return parent::index($req);
-    }
-
-    /**
-     * @OA\Post(
-     *     path="/api/v1/devices",
-     *     summary="Register a new device",
-     *     tags={"Devices"},
-     *     security={{"passport": {"*"}}},
-     *     @OA\RequestBody(
-     *         description="Device that needs to be stored",
-     *         @OA\JsonContent(
-     *              @OA\Property(
-     *                  property="device",
-     *                  type="object",
-     *                  ref="#/components/schemas/Device"
-     *              ),
-     *         ),
-     *     ),
-     *     @OA\Response(
-     *         response=201,
-     *         description="Device that was registered.",
-     *         @OA\JsonContent(
-     *             type="object"
-     *         ),
-     *     ),
-     *     @OA\Response(
-     *         response=422,
-     *         description="Unprocessable Entity.",
-     *         @OA\JsonContent(
-     *             type="object"
-     *         ),
-     *     )
-     * )
-    */
-    /**
-     * Stores a newly created resource on storage
-    *
-    * @param  \Illuminate\Http\Request $req
-    * @return \Illuminate\Http\Response
-    */
-    public function store(Request $req) {
-        $this->exceptArray = ['device.user_id'];
-        if (empty($req->input('device.user_id'))) {
-            $this->extraData = [
-                'device' => [
-                    'user_id' => Auth::user()->id
-                ]
-            ];
-        }
-        return parent::store($req);
     }
 
 }

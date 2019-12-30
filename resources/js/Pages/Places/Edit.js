@@ -1,20 +1,41 @@
 import React, { Component } from 'react';
 import { Form } from 'tabler-react';
 import Card from '../../Components/ApplicationCard';
-import Type from '../../Models/Type';
-import TypeForm from '../../Components/Forms/TypeForm';
+import Place from '../../Models/Place';
+import PlaceForm from '../../Components/Forms/PlaceForm';
 
 import { toast } from 'react-toastify';
 
-export default class Create extends Component {
+export default class Edit extends Component {
 
     state = {
-        type: new Type(),
+        place: new Place(),
+        users: [],
         errors: {}
     }
 
     constructor(props) {
         super(props);
+    }
+
+    componentWillMount() {
+        let id = this.props.match.params.id;
+        Promise.all([
+            this.props.userService.index(),
+            this.props.placeService.show(id)
+        ])
+        .then((res) => {
+            let place = this.state.place;
+            place.fillFromResponse(res[1]);
+            this.setState({
+                place: place,
+                users: res[0]
+            });
+        })
+        .catch((err) => {
+            toast.error('¡Ha ocurrido un error!');
+            this.props.history.push('/admin/places');
+        });
     }
 
     /**
@@ -36,10 +57,10 @@ export default class Create extends Component {
      */
     handleSubmit = (event) => {
         event.preventDefault();
-        this.props.typeService.store(this.state.type)
+        this.props.placeService.update(this.state.place, this.state.place.id)
             .then((res) => {
-                this.props.history.push('/admin/types');
-                toast.success("¡Se agregó el tipo con éxito!");
+                this.props.history.push('/admin/places');
+                toast.success("¡Se agregó el lugar con éxito!");
             })
             .catch((err) => {
                 toast.error('¡Hay errores en el formulario!');
@@ -55,21 +76,23 @@ export default class Create extends Component {
      * @param event
      */
     onValueChange = (event) => {
-        let type = this.state.type;
-        type[event.target.name] = event.target.value;
+        let place = this.state.place;
+        place[event.target.name] = event.target.value;
         this.setState({
-            type: type
+            place: place
         });
     }
 
     render() {
         return (
             <Form onSubmit={this.handleSubmit}>
-                <Card title="Crear dispositivo válido" submit={true} formSubmitButtonText="Crear tipo">
-                    <TypeForm
-                        type={this.state.type}
+                <Card title="Editar lugar" submit={true} formSubmitButtonText="Editar lugar">
+                    <PlaceForm
+                        place={this.state.place}
+                        users={this.state.users}
                         getError={this.getError}
                         onValueChange={this.onValueChange}
+                        edit={true}
                     />
                 </Card>
             </Form>

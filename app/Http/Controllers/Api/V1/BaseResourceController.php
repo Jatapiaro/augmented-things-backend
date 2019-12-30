@@ -126,7 +126,6 @@ class BaseResourceController extends BaseController implements ResourcesControll
         if (!empty($this->extraData)) {
             $input = array_merge_recursive($input, $this->extraData);
         }
-        \Log::info($req->input());
         $data[$this->resource] = $this->repo->find($id);
         $item = $this->service->update($input, $data[$this->resource]);
         return $this->toJsonResource($item);
@@ -172,7 +171,7 @@ class BaseResourceController extends BaseController implements ResourcesControll
      * @param mixed $data
      * @return Illuminate\Http\Resources\Json\Resource
      */
-    private function toJsonResource($data, $collection = false) {
+    protected function toJsonResource($data, $collection = false) {
         if ( $collection ) {
             return call_user_func(
                 $this->jsonResource .'::Collection',

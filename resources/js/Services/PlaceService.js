@@ -1,12 +1,13 @@
-export default class TypeService {
+export default class PlaceService {
 
     constructor(httpService) {
         this.httpService = httpService;
-        this.route = '/types';
+        this.route = '/places';
     }
 
     index() {
-        return this.httpService.makeGet(this.route)
+        const resourceRoute = `/admin-places`;
+        return this.httpService.makeGet(resourceRoute)
             .then((res) => {
                 return Promise.resolve(res);
             })
@@ -15,8 +16,8 @@ export default class TypeService {
             });
     }
 
-    store(type) {
-        const data = this.makeResource(type);
+    store(place) {
+        const data = this.makeResource(place);
         return this.httpService.makePost(this.route, data)
             .then((res) => {
                 return Promise.resolve(res);
@@ -37,9 +38,9 @@ export default class TypeService {
             });
     }
 
-    update(type, id) {
-        const data = this.makeResource(type);
+    update(place, id) {
         const resourceRoute = `${this.route}/${id}`;
+        const data = this.makeResource(place);
         return this.httpService.makePut(resourceRoute, data)
             .then((res) => {
                 return Promise.resolve(res);
@@ -49,10 +50,10 @@ export default class TypeService {
             });
     }
 
-    makeResource(type) {
+    makeResource(place) {
         return {
-            'type': type
-        }
+            place: place
+        };
     }
 
 }

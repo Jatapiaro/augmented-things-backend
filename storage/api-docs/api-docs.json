@@ -275,6 +275,156 @@
                 ]
             }
         },
+        "/api/v1/admin-places": {
+            "get": {
+                "tags": [
+                    "Places"
+                ],
+                "summary": "Shows all the places",
+                "responses": {
+                    "200": {
+                        "description": "Shows all the users places",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "passport": [
+                            "*"
+                        ]
+                    }
+                ]
+            }
+        },
+        "/api/v1/places/{place}": {
+            "get": {
+                "tags": [
+                    "Places"
+                ],
+                "summary": "Shows the specified place",
+                "parameters": [
+                    {
+                        "name": "place",
+                        "in": "path",
+                        "description": "ID of the place",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Shows the specified place",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "passport": [
+                            "*"
+                        ]
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Place"
+                ],
+                "summary": "Updates a place",
+                "parameters": [
+                    {
+                        "name": "place",
+                        "in": "path",
+                        "description": "Place to be updated",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Data of the place to be updated",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "place": {
+                                        "type": "object",
+                                        "$ref": "#/components/schemas/Place"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Place that was updated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "passport": [
+                            "*"
+                        ]
+                    }
+                ]
+            }
+        },
         "/api/v1/types": {
             "get": {
                 "tags": [
@@ -473,6 +623,43 @@
                     }
                 ]
             }
+        },
+        "/api/v1/users": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Shows the users of the system",
+                "responses": {
+                    "200": {
+                        "description": "Shows the current users of the system",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "passport": [
+                            "*"
+                        ]
+                    }
+                ]
+            }
         }
     },
     "components": {
@@ -527,7 +714,7 @@
                 "type": "object"
             },
             "Place": {
-                "title": "Places",
+                "title": "Place",
                 "description": "Places registered by the user",
                 "required": [
                     "name",
@@ -673,6 +860,10 @@
         {
             "name": "Types",
             "description": "Operations related with the valid devices of the system"
+        },
+        {
+            "name": "Users",
+            "description": "Operations related with the users of the system"
         }
     ]
 }
