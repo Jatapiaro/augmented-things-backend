@@ -13,8 +13,12 @@
 Auth::routes();
 Route::group(['middleware' => 'auth'], function () {
 
+    Route::get('/', function () {
+        return redirect()->route('login');
+    });
+
     Route::get(
-        '/{path?}/{id?}/{edit?}',
+        '/admin/{path?}/{id?}/{edit?}',
         'HomeController'
     )->name('homepage');
 

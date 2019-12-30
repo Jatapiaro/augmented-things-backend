@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Header from './Header';
 import Menu from './Menu';
 
-import NavLink from './../../Models/NavLink';
+import NavLink from '../../Models/NavLink';
 import Footer from './Footer';
 
 export default class Layout extends Component {
@@ -15,9 +15,9 @@ export default class Layout extends Component {
         super(props);
         this.navlinks = [
             new NavLink(
-                'Mi Perfil',
-                'fa fa-user',
-                '/me',
+                ' Tipos',
+                'fa fa-object-group',
+                '/types',
                 true),
         ];
     }
@@ -34,10 +34,14 @@ export default class Layout extends Component {
         return (
             <React.Fragment>
                 <Header toggleCollapsedMenu={this.toggleCollapsedMenu}/>
-                <Menu
-                    isCollapsedMenuOpen={this.state.isCollapsedMenuOpen}
-                    navlinks={this.navlinks}
-                />
+
+                {
+                    window.user.superuser === true &&
+                    <Menu
+                        isCollapsedMenuOpen={this.state.isCollapsedMenuOpen}
+                        navlinks={this.navlinks}
+                    />
+                }
 
                 {this.props.children}
 

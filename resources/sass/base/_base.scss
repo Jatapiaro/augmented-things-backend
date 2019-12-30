@@ -1,0 +1,28 @@
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+
+* {
+    box-sizing: border-box;
+}
+*:before,
+*:after {
+    box-sizing: border-box;
+}
+html,
+body {
+    height: 100%;
+    position: relative;
+}
+
+footer {
+    clear: both;
+    position: relative;
+    height: 70px;
+    margin-top: 20px;
+}
+
+.content {
+    margin-top: 25px;
+}
+
+

@@ -4,14 +4,14 @@ export default class Footer extends Component {
 
     render() {
         return (
-            <footer class="footer">
-                <div class="container">
-                    <div class="row row align-items-center flex-row-reverse">
-                        <div class="col col-auto ml-auto">
-                            <div class="row row align-items-center">
-                                <div class="col col-auto">
-                                    <ul class="list list-inline list-inline-dots mb-0">
-                                        <li class="list-inline-item">
+            <footer className="footer">
+                <div className="container">
+                    <div className="row row align-items-center flex-row-reverse">
+                        <div className="col col-auto ml-auto">
+                            <div className="row row align-items-center">
+                                <div className="col col-auto">
+                                    <ul className="list list-inline list-inline-dots mb-0">
+                                        <li className="list-inline-item">
                                             Developed by @Jatapiaro
                                         </li>
                                     </ul>

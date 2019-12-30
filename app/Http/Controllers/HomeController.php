@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+// Resources
+use App\Http\Resources\User as UserResource;
+use Auth;
+
 class HomeController extends Controller
 {
     /**
@@ -23,11 +27,10 @@ class HomeController extends Controller
      */
     public function __invoke()
     {
-        /*\JavaScript::put([
-            'user' => json_encode(new UserResource(Auth::user())),
-            'routes' => json_encode($routes),
+        \JavaScript::put([
+            'user' => new UserResource(Auth::user()),
             'baseUrl' => config('app.url')
-		]);*/
+		]);
         return view('home');
     }
 }

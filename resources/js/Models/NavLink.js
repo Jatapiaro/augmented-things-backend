@@ -3,7 +3,7 @@ export default class NavLink {
     constructor(name, icon, route, visible) {
         this.name = name;
         this.icon = icon;
-        this.route = route;
+        this.route = `/admin${route}`;
         this.visible = visible;
     }
 

@@ -72,6 +72,13 @@ class BaseResourceController extends BaseController implements ResourcesControll
     protected $jsonResource;
 
     /**
+     * Extra data to be appended to the resource
+     *
+     * @var array
+     */
+    protected $extraData;
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -88,6 +95,10 @@ class BaseResourceController extends BaseController implements ResourcesControll
      */
     public function store(Request $req) {
         $data = $this->validateRequest($req);
+        if (!empty($this->extraData)) {
+            $data = array_merge_recursive($data, $this->extraData);
+        }
+        \Log::info($data);
         $item = $this->service->store($data);
         return $this->toJsonResource($item);
     }

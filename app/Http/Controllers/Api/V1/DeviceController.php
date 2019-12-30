@@ -9,6 +9,8 @@ use App\Repositories\Interfaces\DeviceRepoInterface;
 use App\Services\DeviceService;
 use App\Models\Device;
 
+use Auth;
+
 /**
  * @OA\Tag(
  *     name="Devices",
@@ -79,6 +81,13 @@ class DeviceController extends BaseResourceController {
      */
     protected $jsonResource;
 
+    /**
+     * Extra data to be appended to the resource
+     *
+     * @var array
+     */
+    protected $extraData;
+
     public function __construct(DeviceRepoInterface $repo,
         DeviceService $service,
         Device $model)
@@ -90,7 +99,7 @@ class DeviceController extends BaseResourceController {
         $this->resourceLocal = 'Dispositivo';
         $this->model = $model;
 
-        $this->exceptArray = $this->appendArray = [];
+        $this->exceptArray = $this->appendArray = $this->extraData = [];
         $this->jsonResource = 'App\Http\Resources\Device';
     }
 
@@ -166,6 +175,13 @@ class DeviceController extends BaseResourceController {
     */
     public function store(Request $req) {
         $this->exceptArray = ['device.user_id'];
+        if (empty($req->input('user_id'))) {
+            $this->extraData = [
+                'device' => [
+                    'user_id' => Auth::user()->id
+                ]
+            ];
+        }
         return parent::store($req);
     }
 

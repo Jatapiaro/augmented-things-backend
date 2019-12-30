@@ -3,7 +3,13 @@ import React, { Component } from 'react';
 export default class Header extends Component {
 
     logout = () => {
-        alert('ok');
+        window.axios.post('/logout')
+            .then(res => {
+                console.log("Ok");
+            })
+            .catch(error => {
+                window.location.href = "/login";
+            });
     }
 
     render() {
@@ -12,21 +18,23 @@ export default class Header extends Component {
                 <div className="header py-4">
                     <div className="container">
                         <div className="d-flex">
-                            <a className="header-brand" href="/">
+
+                            <a className="header-brand" href="/admin">
                                 Augmented Things Backend
                             </a>
+
                             <div className="d-flex order-lg-2 ml-auto">
                                 <div className="dropdown">
                                     <a href="#" className="nav-link pr-0 leading-none" data-toggle="dropdown">
                                         <span className="profile">
                                             <div>
-                                                <span className="text-default">Aquí va el final</span>
+                                                <span className="text-default">{window.user.name}</span>
                                             </div>
                                         </span>
                                     </a>
                                     <div className="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
                                         <a onClick={this.logout} className="dropdown-item" href="#">
-                                            <i className="dropdown-icon fe fe-log-out"></i> Sign out
+                                            <i className="dropdown-icon fe fe-log-out"></i> Cerrar Sesión
                                         </a>
                                     </div>
                                 </div>

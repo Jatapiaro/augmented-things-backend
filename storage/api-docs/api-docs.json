@@ -431,7 +431,7 @@
                         "schema": "User",
                         "description": "Secret key of the client id",
                         "type": "string",
-                        "example": "WxqvsSsx0IPUkNybr7q2wdN6LI6hweujSNgLCurK"
+                        "example": "8B3voLCXrABoDGMmhDMig7topVVc8bqvocW1uF1r"
                     }
                 },
                 "type": "object"
