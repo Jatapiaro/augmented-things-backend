@@ -79,6 +79,13 @@ class TypeController extends BaseResourceController {
      */
     protected $jsonResource;
 
+    /**
+     * Extra data to be appended to the resource
+     *
+     * @var array
+     */
+    protected $extraData;
+
     public function __construct(TypeRepoInterface $repo,
         TypeService $service,
         Type $model)
@@ -90,7 +97,7 @@ class TypeController extends BaseResourceController {
         $this->resourceLocal = 'Tipo';
         $this->model = $model;
 
-        $this->exceptArray = $this->appendArray = [];
+        $this->exceptArray = $this->appendArray = $this->extraData = [];
         $this->jsonResource = 'App\Http\Resources\Type';
     }
 
@@ -166,6 +173,107 @@ class TypeController extends BaseResourceController {
     */
     public function store(Request $req) {
         return parent::store($req);
+    }
+
+    /**
+    * @OA\Get(
+    *     path="/api/v1/types/{type}",
+    *     summary="Shows the specified type",
+    *     tags={"Types"},
+    *     security={{"passport": {"*"}}},
+    *     @OA\Parameter(
+    *         name="type",
+    *         in="path",
+    *         description="ID of the type",
+    *         required=true,
+    *         @OA\Schema(
+    *             type="string",
+    *             example="abcdefghijklmnopq"
+    *         )
+    *     ),
+    *     @OA\Response(
+    *         response=200,
+    *         description="Shows the specified type",
+    *         @OA\JsonContent(
+    *             type="object"
+    *         ),
+    *     ),
+    *     @OA\Response(
+    *         response=401,
+    *         description="Unauthorized.",
+    *         @OA\JsonContent(
+    *             type="object"
+    *         ),
+    *     )
+    * )
+    */
+    /**
+     * Get the specified element
+     * @param \Illuminate\Http\Request $req
+     * @param  string $id
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Request $req, $id) {
+        return parent::show($req, $id);
+    }
+
+    /**
+    * @OA\Put(
+    *     path="/api/v1/types/{type}",
+    *     summary="Updates a type",
+    *     tags={"Types"},
+    *     security={{"passport": {"*"}}},
+    *     @OA\Parameter(
+    *         description="Type to update",
+    *         in="path",
+    *         name="type",
+    *         required=true,
+    *         @OA\Schema(
+    *             type="string"
+    *         )
+    *     ),
+    *     @OA\RequestBody(
+    *         description="Type to be updated",
+    *         @OA\JsonContent(
+    *              @OA\Property(
+    *                  property="type",
+    *                  type="object",
+    *                  ref="#/components/schemas/Type"
+    *              ),
+    *         ),
+    *     ),
+    *     @OA\Response(
+    *         response=201,
+    *         description="Type that was updated",
+    *         @OA\JsonContent(
+    *             type="object"
+    *         ),
+    *     ),
+    *     @OA\Response(
+    *         response=422,
+    *         description="Unprocessable Entity.",
+    *         @OA\JsonContent(
+    *             type="object"
+    *         ),
+    *     )
+    * )
+    */
+    /**
+     * Updates the specified resource
+    *
+     * @param  \Illuminate\Http\Request $req
+     * @param  string  $id
+     * @return \Illuminate\Http\Response
+    */
+    public function update(Request $req, $id) {
+        $this->exceptArray = ['type.id'];
+        $this->appendArray = [
+            'rules' => [
+                'type.id' => 'required|string|unique:types,id,' . $id
+            ]
+        ];
+        return parent::update($req, $id);
     }
 
 }

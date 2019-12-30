@@ -26,6 +26,29 @@ export default class TypeService {
             });
     }
 
+    show(id) {
+        const resourceRoute = `${this.route}/${id}`;
+        return this.httpService.makeGet(resourceRoute)
+            .then((res) => {
+                return Promise.resolve(res);
+            })
+            .catch((err) => {
+                return Promise.reject(err);
+            });
+    }
+
+    update(type, id) {
+        const data = this.makeResource(type);
+        const resourceRoute = `${this.route}/${id}`;
+        return this.httpService.makeaPut(resourceRoute, data)
+            .then((res) => {
+                return Promise.resolve(res);
+            })
+            .catch((err) => {
+                return Promise.reject(err);
+            });
+    }
+
     makeResource(type) {
         return {
             'type': type

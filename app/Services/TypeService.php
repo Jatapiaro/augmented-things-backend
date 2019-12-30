@@ -34,6 +34,28 @@ class TypeService {
     }
 
     /**
+     * Updates the $type with the $data
+     *
+     * @param  array $data
+     * @param  Type $type
+     * @return  App\Models\Type
+     */
+    public function update($data, Type $item) {
+        $this->validate(
+            $data,
+            ['type.id'],
+            [
+                'rules' => [
+                    'type.id' => 'required|string|unique:types,id,' . $item->id
+                ]
+            ]
+        );
+        $this->repo->update($data['type'], $item->id);
+        $item->refresh();
+        return $item;
+    }
+
+    /**
      * Validate the given data using the validation book of the model
      *
      * @param  array $data

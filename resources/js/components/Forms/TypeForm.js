@@ -15,8 +15,9 @@ export default class TypeForm extends Component {
                     <Form.Input
                         name="id"
                         error={this.props.getError('type.id')}
-                        value={this.props.type.name}
+                        value={this.props.type.id}
                         onChange={this.props.onValueChange}
+                        disabled={this.props.edit}
                     />
                 </Form.Group>
 
@@ -35,6 +36,18 @@ export default class TypeForm extends Component {
                     </Form.Select>
                 </Form.Group>
 
+                {
+                    this.props.edit === true &&
+                    <Form.Group label="Disponibilidad">
+                        <Form.Switch
+                            label={this.props.type.used? `Ocupado` : `Disponible`}
+                            name="used"
+                            checked={!this.props.type.used}
+                            onChange={this.props.onSwitchToggle}
+                        />
+                    </Form.Group>
+                }
+
             </Fragment>
         );
     }
@@ -42,5 +55,6 @@ export default class TypeForm extends Component {
 }
 
 TypeForm.defaultProps = {
-    type: new Type()
+    type: new Type(),
+    edit: false
 }

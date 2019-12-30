@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Card from '../../Components/ApplicationCard';
-import { Table } from 'tabler-react';
+import { Dropdown, Table } from 'tabler-react';
 import TYPES from './TypeTransformer';
 
 export default class Index extends Component {
@@ -12,7 +12,7 @@ export default class Index extends Component {
     constructor(props) {
         super(props);
         this.columns = [
-            'ID', 'Tipo', ''
+            'ID', 'Tipo', 'Status', ''
         ];
     }
 
@@ -54,6 +54,34 @@ export default class Index extends Component {
                                             ? TYPES[type.type]
                                             : type.type
                                         }
+                                    </Table.Col>
+                                    <Table.Col>
+                                        {type.used? 'Usado' : 'Disponible'}
+                                    </Table.Col>
+                                    <Table.Col>
+                                        <Dropdown
+                                            type="button"
+                                            color="primary"
+                                            triggerContent="Acciones"
+                                            items={[
+                                                <Dropdown.Item
+                                                    key={1}
+                                                    onClick={
+                                                        () => this.props.history.push(`/admin/types/${type.id}/edit`)
+                                                    }>
+                                                    <i className="fa fa-pencil" />
+                                                    <span> Editar</span>
+                                                </Dropdown.Item>,
+                                                <Dropdown.Item
+                                                    key={2}
+                                                    onClick={() =>
+                                                        alert('Implement delete modal')
+                                                    }>
+                                                    <i className="fe fe-trash-2" />
+                                                    <span> Borrar</span>
+                                                </Dropdown.Item>
+                                            ]}
+                                        />
                                     </Table.Col>
                                 </Table.Row>
                             )

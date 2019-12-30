@@ -25,7 +25,7 @@ class Type extends Model
      * @var array
      */
     protected $fillable = [
-        'id', 'type'
+        'id', 'type', 'used'
     ];
 
     /**
@@ -50,6 +50,7 @@ class Type extends Model
         $book['rules'] = [
             'type.id' => 'required|string|unique:types,id',
             'type.type' => 'required|string',
+            'type.used' => 'nullable|boolean'
         ];
         $book['messages'] = [
             'type.id.required' => 'Se requiere el id del dispositivo',
@@ -57,7 +58,9 @@ class Type extends Model
             'type.id.unique' => 'El id introducido ya ha sido registrado',
 
             'type.type.required' => 'Se requiere el tipo del dispositivo',
-            'type.type.string' => 'El tipo de dispositivo debe ser un texto'
+            'type.type.string' => 'El tipo de dispositivo debe ser un texto',
+
+            'type.used.boolean' => 'El valor de disponibilidad debe ser booleano'
         ];
         if (!empty($except)) {
             $except = array_flip($except);

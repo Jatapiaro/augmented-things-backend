@@ -21,9 +21,9 @@ export default class HttpService {
         });
     }
 
-    makePut(route, body) {
+    makePut(route, body, isFormData = false) {
         const endpoint = this.getEnpoint(route);
-        const headers = this.getHeaders(false);
+        const headers = this.getHeaders(isFormData);
         return window.axios.put(endpoint, body, { headers: headers }).then(res => {
             return res.data.data;
         })

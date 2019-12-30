@@ -98,7 +98,6 @@ class BaseResourceController extends BaseController implements ResourcesControll
         if (!empty($this->extraData)) {
             $data = array_merge_recursive($data, $this->extraData);
         }
-        \Log::info($data);
         $item = $this->service->store($data);
         return $this->toJsonResource($item);
     }
@@ -111,9 +110,8 @@ class BaseResourceController extends BaseController implements ResourcesControll
      * @return \Illuminate\Http\Response
      */
     public function show(Request $req, $id) {
-        $data = [];
-        $data[$this->resource] = $this->repo->find($id);
-        return view($this->resourcePlural.'.show', ['data' => $data]);
+        $item = $this->repo->find($id);
+        return $this->toJsonResource($item);
     }
 
     /**
@@ -124,13 +122,14 @@ class BaseResourceController extends BaseController implements ResourcesControll
      * @return \Illuminate\Http\Response
      */
     public function update(Request $req, $id) {
-        /*$input = $this->validateRequest($req);
-        $data = [];
+        $input = $this->validateRequest($req);
+        if (!empty($this->extraData)) {
+            $input = array_merge_recursive($input, $this->extraData);
+        }
+        \Log::info($req->input());
         $data[$this->resource] = $this->repo->find($id);
-        $this->service->update($input, $data[$this->resource]);
-        return redirect()
-            ->route($this->resourcePlural.'.edit', ['id' => $id])
-            ->with('status', 'El '.$this->resourceLocal.' se ha editado con éxito.');*/
+        $item = $this->service->update($input, $data[$this->resource]);
+        return $this->toJsonResource($item);
     }
 
     /**
@@ -141,10 +140,9 @@ class BaseResourceController extends BaseController implements ResourcesControll
      * @return \Illuminate\Http\Response
      */
     public function destroy(Request $req, $id) {
-        /*$this->repo->delete($id);
-        return redirect()
-            ->route('app.' . $this->resourcePlural. '.index')
-            ->with('status', 'El '.$this->resourceLocal.' se ha eliminado con éxito.');*/
+        $item = $this->repo->find($id);
+        $this->repo->delete($id);
+        return $this->toJsonResource($item);
     }
 
     /**

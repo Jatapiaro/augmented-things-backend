@@ -12,6 +12,7 @@ import Home from './Pages/Home';
  */
 import TypesIndex from './Pages/Types/Index';
 import TypesCreate from './Pages/Types/Create';
+import TypesEdit from './Pages/Types/Edit';
 
 
 /**
@@ -50,10 +51,10 @@ export default class ReactWrapper extends Component {
                                     path="/admin/types"
                                     render={(props) => (
                                         window.user.superuser === true
-                                            ? <TypesIndex
-                                                typeService={this.typeService}
-                                                {...props} />
-                                            : <Redirect to='/admin' />
+                                        ? <TypesIndex
+                                            typeService={this.typeService}
+                                            {...props} />
+                                        : <Redirect to='/admin' />
                                     )}
                                     exact={true} />
 
@@ -61,10 +62,21 @@ export default class ReactWrapper extends Component {
                                     path="/admin/types/create"
                                     render={(props) => (
                                         window.user.superuser === true
-                                            ? <TypesCreate
-                                                typeService={this.typeService}
-                                                {...props} />
-                                            : <Redirect to='/admin' />
+                                        ? <TypesCreate
+                                            typeService={this.typeService}
+                                            {...props} />
+                                        : <Redirect to='/admin' />
+                                    )}
+                                    exact={true} />
+
+                                <Route
+                                    path="/admin/types/:id/edit"
+                                    render={(props) => (
+                                        window.user.superuser === true
+                                        ? <TypesEdit
+                                            typeService={this.typeService}
+                                            {...props} />
+                                        : <Redirect to='/admin' />
                                     )}
                                     exact={true} />
 
