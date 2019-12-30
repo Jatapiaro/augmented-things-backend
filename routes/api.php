@@ -38,6 +38,11 @@ Route::group([
          */
         Route::apiResource('/places', 'PlaceController');
 
+        /**
+         * Types Routes
+         */
+        Route::apiResource('/types', 'TypeController');
+
     });
 
 });

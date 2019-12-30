@@ -274,6 +274,94 @@
                     }
                 ]
             }
+        },
+        "/api/v1/types": {
+            "get": {
+                "tags": [
+                    "Types"
+                ],
+                "summary": "Shows the system types",
+                "responses": {
+                    "200": {
+                        "description": "Shows the system types",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "passport": [
+                            "*"
+                        ]
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Types"
+                ],
+                "summary": "Register a new device type",
+                "requestBody": {
+                    "description": "Type that needs to be stored",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "type": {
+                                        "type": "object",
+                                        "$ref": "#/components/schemas/Type"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Device that was registered.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "passport": [
+                            "*"
+                        ]
+                    }
+                ]
+            }
         }
     },
     "components": {
@@ -470,6 +558,10 @@
         {
             "name": "Places",
             "description": "Operations related with the user places"
+        },
+        {
+            "name": "Types",
+            "description": "Operations related with the valid devices of the system"
         }
     ]
 }

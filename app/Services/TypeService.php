@@ -5,36 +5,31 @@ namespace App\Services;
 use Validator;
 use Illuminate\Validation\ValidationException;
 
-use App\Models\Device;
-use App\Repositories\Interfaces\DeviceRepoInterface;
+use App\Models\Type;
+use App\Repositories\Interfaces\TypeRepoInterface;
 use Auth;
 
-class DeviceService {
+class TypeService {
 
     /**
      * Repository
      *
-     * @var  DeviceRepoInteface
+     * @var  TypeRepoInteface
      */
     private $repo;
 
-    public function __construct(DeviceRepoInterface $repo) {
+    public function __construct(TypeRepoInterface $repo) {
         $this->repo = $repo;
     }
 
     /**
      * Stores the given item
      *
-     * @return  App\Models\Device
+     * @return  App\Models\Type
      */
     public function store($data) {
         $this->validate($data);
-        $item = $this->repo->create($data['device']);
-
-        $type = $item->type;
-        $type->used = true;
-        $type->save();
-
+        $item = $this->repo->create($data['type']);
         return $item;
     }
 
@@ -47,7 +42,7 @@ class DeviceService {
      * @return  boolean
      */
     public function validate($data, $except = [], $append = []) {
-        $vb = Device::ValidationBook($except, $append);
+        $vb = Type::ValidationBook($except, $append);
         $validator = Validator::make($data, $vb['rules'], $vb['messages']);
         if ($validator->fails()) {
             throw new ValidationException($validator);

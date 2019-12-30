@@ -29,6 +29,15 @@ class Type extends Model
     ];
 
     /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'id' => 'string'
+    ];
+
+    /**
      * Returns an array that contains two indexes:
      * 'rules' for the validation
      * 'messages' messages given by the validation
