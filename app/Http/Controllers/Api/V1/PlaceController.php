@@ -310,4 +310,47 @@ class PlaceController extends BaseResourceController {
         return parent::update($req, $id);
     }
 
+    /**
+     * @OA\Delete(
+     *     path="/api/v1/places/{place}",
+     *     summary="Deletes a place",
+     *     tags={"Places"},
+     *     security={{"passport": {"*"}}},
+     *     @OA\Parameter(
+     *         description="Place to be deleted",
+     *         in="path",
+     *         name="place",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="integer",
+     *             format="int64"
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=201,
+     *         description="Place that was deleted",
+     *         @OA\JsonContent(
+     *             type="object"
+     *         ),
+     *     ),
+     *     @OA\Response(
+     *         response=422,
+     *         description="Unprocessable Entity.",
+     *         @OA\JsonContent(
+     *             type="object"
+     *         ),
+     *     )
+     * )
+     */
+    /**
+     * Destroys the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Request $request, $id) {
+        return parent::destroy($request, $id);
+    }
+
 }

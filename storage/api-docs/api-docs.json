@@ -298,6 +298,53 @@
                         ]
                     }
                 ]
+            },
+            "delete": {
+                "tags": [
+                    "Devices"
+                ],
+                "summary": "Deletes a device",
+                "parameters": [
+                    {
+                        "name": "device",
+                        "in": "path",
+                        "description": "Device to be deleted",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Device that was deleted",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "passport": [
+                            "*"
+                        ]
+                    }
+                ]
             }
         },
         "/api/v1/me": {
@@ -573,6 +620,53 @@
                         ]
                     }
                 ]
+            },
+            "delete": {
+                "tags": [
+                    "Places"
+                ],
+                "summary": "Deletes a place",
+                "parameters": [
+                    {
+                        "name": "place",
+                        "in": "path",
+                        "description": "Place to be deleted",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Place that was deleted",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "passport": [
+                            "*"
+                        ]
+                    }
+                ]
             }
         },
         "/api/v1/types": {
@@ -746,6 +840,52 @@
                 "responses": {
                     "201": {
                         "description": "Type that was updated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "passport": [
+                            "*"
+                        ]
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Types"
+                ],
+                "summary": "Deletes a type",
+                "parameters": [
+                    {
+                        "name": "type",
+                        "in": "path",
+                        "description": "Type to be deleted",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Type that was deleted",
                         "content": {
                             "application/json": {
                                 "schema": {

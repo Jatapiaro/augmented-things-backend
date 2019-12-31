@@ -140,7 +140,7 @@ class BaseResourceController extends BaseController implements ResourcesControll
      */
     public function destroy(Request $req, $id) {
         $item = $this->repo->find($id);
-        $this->repo->delete($id);
+        $item->delete();
         return $this->toJsonResource($item);
     }
 

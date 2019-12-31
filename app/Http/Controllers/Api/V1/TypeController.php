@@ -263,17 +263,59 @@ class TypeController extends BaseResourceController {
      * Updates the specified resource
     *
      * @param  \Illuminate\Http\Request $req
-     * @param  string  $id
+     * @param  string $id
      * @return \Illuminate\Http\Response
     */
     public function update(Request $req, $id) {
         $this->exceptArray = ['type.id'];
-        $this->appendArray = [
-            'rules' => [
-                'type.id' => 'required|string|unique:types,id,' . $id
+        $this->extraData = [
+            'type' => [
+                'id' => $id . ''
             ]
         ];
         return parent::update($req, $id);
+    }
+
+    /**
+     * @OA\Delete(
+     *     path="/api/v1/types/{type}",
+     *     summary="Deletes a type",
+     *     tags={"Types"},
+     *     security={{"passport": {"*"}}},
+     *     @OA\Parameter(
+     *         description="Type to be deleted",
+     *         in="path",
+     *         name="type",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string",
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=201,
+     *         description="Type that was deleted",
+     *         @OA\JsonContent(
+     *             type="object"
+     *         ),
+     *     ),
+     *     @OA\Response(
+     *         response=422,
+     *         description="Unprocessable Entity.",
+     *         @OA\JsonContent(
+     *             type="object"
+     *         ),
+     *     )
+     * )
+     */
+    /**
+     * Destroys the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Request $request, $id) {
+        return parent::destroy($request, $id);
     }
 
 }
