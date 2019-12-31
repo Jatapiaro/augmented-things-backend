@@ -32,6 +32,7 @@ Route::group([
          * Devices Routes
          */
         Route::apiResource('/devices', 'DeviceController');
+        Route::get('/admin-devices', 'DeviceController@adminIndex')->name('devices.index.admin');
 
         /**
          * Places Routes

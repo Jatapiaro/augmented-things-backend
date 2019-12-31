@@ -136,6 +136,41 @@ class DeviceController extends BaseResourceController {
     }
 
     /**
+    * @OA\Get(
+    *     path="/api/v1/admin-devices",
+    *     summary="Shows all the user devices",
+    *     tags={"Devices"},
+    *     security={{"passport": {"*"}}},
+    *     @OA\Response(
+    *         response=200,
+    *         description="Shows all the users devices",
+    *         @OA\JsonContent(
+    *             type="object"
+    *         ),
+    *     ),
+    *     @OA\Response(
+    *         response=401,
+    *         description="Unauthorized.",
+    *         @OA\JsonContent(
+    *             type="object"
+    *         ),
+    *     )
+    * )
+    */
+    /**
+     * Display all the users devices.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function adminIndex(Request $req)
+    {
+        return parent::toJsonResource(
+            $this->repo->adminAll(),
+            true
+        );
+    }
+
+    /**
      * @OA\Post(
      *     path="/api/v1/devices",
      *     summary="Register a new device",
@@ -174,8 +209,8 @@ class DeviceController extends BaseResourceController {
     * @return \Illuminate\Http\Response
     */
     public function store(Request $req) {
-        $this->exceptArray = ['device.user_id'];
         if (empty($req->input('device.user_id'))) {
+            $this->exceptArray = ['device.user_id'];
             $this->extraData = [
                 'device' => [
                     'user_id' => Auth::user()->id

@@ -4,6 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\Type as TypeResource;
+use App\Http\Resources\User as UserResource;
 
 class Device extends JsonResource
 {
@@ -18,6 +19,7 @@ class Device extends JsonResource
         $data = parent::toArray($request);
         $data['place'] = $this->place->name;
         $data['type'] = new TypeResource($this->type);
+        $data['user'] = new UserResource($this->user);
         return $data;
     }
 }

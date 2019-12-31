@@ -90,6 +90,15 @@ class User extends Authenticatable
     }
 
     /**
+     * Relationship between the user and his places
+     *
+     * @return App\Models\Place
+     */
+    public function places() {
+        return $this->hasMany('App\Models\Place');
+    }
+
+    /**
      * Returns an array that contains two indexes:
      * 'rules' for the validation
      * 'messages' messages given by the validation

@@ -34,7 +34,8 @@ class Type extends Model
      * @var array
      */
     protected $casts = [
-        'id' => 'string'
+        'id' => 'string',
+        'used' => 'boolean'
     ];
 
     /**

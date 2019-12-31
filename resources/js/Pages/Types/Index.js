@@ -3,6 +3,8 @@ import Card from '../../Components/ApplicationCard';
 import { Dropdown, Table } from 'tabler-react';
 import TYPES from './TypeTransformer';
 
+import { toast } from 'react-toastify';
+
 export default class Index extends Component {
 
     state = {
@@ -24,7 +26,8 @@ export default class Index extends Component {
                 });
             })
             .catch(err => {
-                console.log(err);
+                toast.error('¡Ha ocurrido un error!');
+                this.props.history.push('/admin');
             });
     }
 

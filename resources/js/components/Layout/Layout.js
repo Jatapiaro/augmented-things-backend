@@ -24,6 +24,11 @@ export default class Layout extends Component {
                 'fa fa-home',
                 '/places',
                 true),
+            new NavLink(
+                ' Dipositivos',
+                'fa fa-tencent-weibo',
+                '/devices',
+                true),
         ];
     }
 

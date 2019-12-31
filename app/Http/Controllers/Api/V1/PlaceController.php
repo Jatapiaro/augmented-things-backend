@@ -151,7 +151,7 @@ class PlaceController extends BaseResourceController {
     * )
     */
     /**
-     * Display the (current) user places.
+     * Display all the users places.
      *
      * @return \Illuminate\Http\Response
      */
@@ -261,7 +261,7 @@ class PlaceController extends BaseResourceController {
     * @OA\Put(
     *     path="/api/v1/places/{place}",
     *     summary="Updates a place",
-    *     tags={"Place"},
+    *     tags={"Places"},
     *     security={{"passport": {"*"}}},
     *     @OA\Parameter(
     *         description="Place to be updated",

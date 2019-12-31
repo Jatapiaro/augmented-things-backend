@@ -69,6 +69,13 @@ class Device extends Model
     }
 
     /**
+     * Declares the relationship between this device and his owner
+     */
+    public function user() {
+        return $this->belongsTo('App\Models\User');
+    }
+
+    /**
      * Returns an array that contains two indexes:
      * 'rules' for the validation
      * 'messages' messages given by the validation

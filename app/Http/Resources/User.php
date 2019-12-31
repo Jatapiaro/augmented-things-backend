@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\Device as DeviceResource;
 
 class User extends JsonResource
 {
@@ -14,6 +15,8 @@ class User extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        $data = parent::toArray($request);
+        $data['places'] = $this->places;
+        return $data;
     }
 }

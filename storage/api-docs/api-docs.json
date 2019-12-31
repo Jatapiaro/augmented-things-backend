@@ -150,6 +150,43 @@
                 ]
             }
         },
+        "/api/v1/admin-devices": {
+            "get": {
+                "tags": [
+                    "Devices"
+                ],
+                "summary": "Shows all the user devices",
+                "responses": {
+                    "200": {
+                        "description": "Shows all the users devices",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "passport": [
+                            "*"
+                        ]
+                    }
+                ]
+            }
+        },
         "/api/v1/me": {
             "get": {
                 "tags": [
@@ -363,7 +400,7 @@
             },
             "put": {
                 "tags": [
-                    "Place"
+                    "Places"
                 ],
                 "summary": "Updates a place",
                 "parameters": [

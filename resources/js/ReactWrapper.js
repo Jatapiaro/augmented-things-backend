@@ -8,6 +8,12 @@ import { ToastContainer } from 'react-toastify';
 import Home from './Pages/Home';
 
 /**
+ * Devices Components
+ */
+import DevicesIndex from './Pages/Devices/Index';
+import DevicesCreate from './Pages/Devices/Create';
+
+/**
  * Places Components
  */
 import PlacesIndex from './Pages/Places/Index';
@@ -26,6 +32,7 @@ import TypesEdit from './Pages/Types/Edit';
  * Services
  */
 import HttpService from './Services/HttpService';
+import DeviceService from './Services/DeviceService';
 import TypeService from './Services/TypeService';
 import PlaceService from './Services/PlaceService';
 import UserService from './Services/UserService';
@@ -36,6 +43,7 @@ export default class ReactWrapper extends Component {
     constructor(props) {
         super(props);
         this.httpService = new HttpService();
+        this.deviceService = new DeviceService(this.httpService);
         this.typeService = new TypeService(this.httpService);
         this.placeService = new PlaceService(this.httpService);
         this.userService = new UserService(this.httpService);
@@ -55,6 +63,30 @@ export default class ReactWrapper extends Component {
                                             {...props}
                                         />
                                     }
+                                    exact={true} />
+
+                                {/* ============= Devices =========== */}
+                                <Route
+                                    path="/admin/devices"
+                                    render={(props) => (
+                                        window.user.superuser === true
+                                        ? <DevicesIndex
+                                            deviceService={this.deviceService}
+                                            {...props} />
+                                        : <Redirect to='/admin' />
+                                    )}
+                                    exact={true} />
+                                <Route
+                                    path="/admin/devices/create"
+                                    render={(props) => (
+                                        window.user.superuser === true
+                                        ? <DevicesCreate
+                                            deviceService={this.deviceService}
+                                            typeService={this.typeService}
+                                            userService={this.userService}
+                                            {...props} />
+                                        : <Redirect to='/admin' />
+                                    )}
                                     exact={true} />
 
                                 {/* ============= Places =========== */}
@@ -85,11 +117,11 @@ export default class ReactWrapper extends Component {
                                     path="/admin/places/:id/edit"
                                     render={(props) => (
                                         window.user.superuser === true
-                                            ? <PlacesEdit
-                                                placeService={this.placeService}
-                                                userService={this.userService}
-                                                {...props} />
-                                            : <Redirect to='/admin' />
+                                        ? <PlacesEdit
+                                            placeService={this.placeService}
+                                            userService={this.userService}
+                                            {...props} />
+                                        : <Redirect to='/admin' />
                                     )}
                                     exact={true} />
 
