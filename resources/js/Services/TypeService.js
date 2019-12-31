@@ -49,6 +49,17 @@ export default class TypeService {
             });
     }
 
+    destroy(type) {
+        const resourceRoute = `${this.route}/${type.id}`;
+        return this.httpService.makeDelete(resourceRoute)
+            .then((res) => {
+                return Promise.resolve(res);
+            })
+            .catch((err) => {
+                return Promise.reject(err);
+            });
+    }
+
     makeResource(type) {
         return {
             'type': type

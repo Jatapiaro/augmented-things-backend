@@ -28,6 +28,7 @@
         "babel-plugin-transform-class-properties": "^6.24.1",
         "babel-preset-react": "^6.24.1",
         "font-awesome": "^4.7.0",
+        "react-bootstrap4-modal": "^1.7.4",
         "react-router-dom": "^5.1.2",
         "react-toastify": "^5.4.1",
         "tabler-react": "^1.30.1"

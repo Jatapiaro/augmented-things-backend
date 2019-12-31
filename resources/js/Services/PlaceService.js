@@ -50,6 +50,17 @@ export default class PlaceService {
             });
     }
 
+    destroy(place) {
+        const resourceRoute = `${this.route}/${place.id}`;
+        return this.httpService.makeDelete(resourceRoute)
+            .then((res) => {
+                return Promise.resolve(res);
+            })
+            .catch((err) => {
+                return Promise.reject(err);
+            });
+    }
+
     makeResource(place) {
         return {
             place: place

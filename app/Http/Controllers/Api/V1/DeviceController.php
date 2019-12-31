@@ -377,6 +377,12 @@ class DeviceController extends BaseResourceController {
      * @return \Illuminate\Http\Response
      */
     public function destroy(Request $request, $id) {
+        $item = $this->repo->find($id);
+
+        $type = $item->type;
+        $type->used = false;
+        $type->save();
+
         return parent::destroy($request, $id);
     }
 

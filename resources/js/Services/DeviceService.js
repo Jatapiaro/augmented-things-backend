@@ -50,6 +50,17 @@ export default class DeviceService {
             });
     }
 
+    destroy(device) {
+        const resourceRoute = `${this.route}/${device.id}`;
+        return this.httpService.makeDelete(resourceRoute)
+            .then((res) => {
+                return Promise.resolve(res);
+            })
+            .catch((err) => {
+                return Promise.reject(err);
+            });
+    }
+
     makeResource(device) {
         return {
             device: device
