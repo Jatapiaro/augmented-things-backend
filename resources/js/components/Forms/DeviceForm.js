@@ -64,7 +64,7 @@ export default class DeviceForm extends Component {
                         <option value="">Selecciona un tipo</option>
                         {
                             this.props.types.map((type, index) =>
-                                type.used === false &&
+                                (type.used === false || type.id == this.props.device.type_id) &&
                                 <option key={`type-option-${index}`} value={type.id}>
                                     {
                                         TYPES[type.type]
@@ -85,8 +85,7 @@ export default class DeviceForm extends Component {
                         name="user_id"
                         error={this.props.getError('device.user_id')}
                         value={this.props.device.user_id}
-                        onChange={this.props.onUserChange}
-                        disabled={this.props.edit}>
+                        onChange={this.props.onUserChange}>
                         <option value="-1">Selecciona un usuario</option>
                         {
                             this.props.users.map((user, index) =>
@@ -101,8 +100,7 @@ export default class DeviceForm extends Component {
                         name="place_id"
                         error={this.props.getError('device.place_id')}
                         value={this.props.device.place_id}
-                        onChange={this.props.onValueChange}
-                        disabled={this.props.edit}>
+                        onChange={this.props.onValueChange}>
                         <option value="">Selecciona un lugar</option>
                         {
                             this.props.places.map((place, index) =>

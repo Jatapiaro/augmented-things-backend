@@ -220,4 +220,121 @@ class DeviceController extends BaseResourceController {
         return parent::store($req);
     }
 
+    /**
+    * @OA\Get(
+    *     path="/api/v1/devices/{device}",
+    *     summary="Shows the specified device",
+    *     tags={"Devices"},
+    *     security={{"passport": {"*"}}},
+    *     @OA\Parameter(
+    *         name="device",
+    *         in="path",
+    *         description="ID of the device",
+    *         required=true,
+    *         @OA\Schema(
+    *             type="integer",
+    *             format="int64",
+    *             example=1
+    *         )
+    *     ),
+    *     @OA\Response(
+    *         response=200,
+    *         description="Shows the specified device",
+    *         @OA\JsonContent(
+    *             type="object"
+    *         ),
+    *     ),
+    *     @OA\Response(
+    *         response=401,
+    *         description="Unauthorized.",
+    *         @OA\JsonContent(
+    *             type="object"
+    *         ),
+    *     )
+    * )
+    */
+    /**
+     * Get the specified element
+     * @param \Illuminate\Http\Request $req
+     * @param  string $id
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Request $req, $id) {
+        return parent::show($req, $id);
+    }
+
+    /**
+    * @OA\Put(
+    *     path="/api/v1/devices/{device}",
+    *     summary="Updates a device",
+    *     tags={"Devices"},
+    *     security={{"passport": {"*"}}},
+    *     @OA\Parameter(
+    *         description="Device to be updated",
+    *         in="path",
+    *         name="device",
+    *         required=true,
+    *         @OA\Schema(
+    *             type="integer",
+    *             format="int64"
+    *         )
+    *     ),
+    *     @OA\RequestBody(
+    *         description="Data of the device to be updated",
+    *         @OA\JsonContent(
+    *              @OA\Property(
+    *                  property="device",
+    *                  type="object",
+    *                  ref="#/components/schemas/Device"
+    *              ),
+    *         ),
+    *     ),
+    *     @OA\Response(
+    *         response=201,
+    *         description="Device that was updated",
+    *         @OA\JsonContent(
+    *             type="object"
+    *         ),
+    *     ),
+    *     @OA\Response(
+    *         response=422,
+    *         description="Unprocessable Entity.",
+    *         @OA\JsonContent(
+    *             type="object"
+    *         ),
+    *     )
+    * )
+    */
+    /**
+     * Updates the specified resource
+    *
+     * @param  \Illuminate\Http\Request $req
+     * @param  string  $id
+     * @return \Illuminate\Http\Response
+    */
+    public function update(Request $req, $id) {
+        $type = "";
+        if (!empty($req->input('device.type_id'))) {
+            $type = $req->input('device.type_id');
+        }
+
+        $this->exceptArray = ['device.type_id'];
+        $this->appendArray = [
+            'rules' => [
+                'device.type_id' => 'required|string|unique:types,id,' . $type
+            ]
+        ];
+
+        if (empty($req->input('device.user_id'))) {
+            $this->exceptArray = ['device.type_id', 'device.user_id'];
+            $this->extraData = [
+                'device' => [
+                    'user_id' => Auth::user()->id
+                ]
+            ];
+        }
+        return parent::update($req, $id);
+    }
+
 }

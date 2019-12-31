@@ -12,6 +12,7 @@ import Home from './Pages/Home';
  */
 import DevicesIndex from './Pages/Devices/Index';
 import DevicesCreate from './Pages/Devices/Create';
+import DevicesEdit from './Pages/Devices/Edit';
 
 /**
  * Places Components
@@ -81,6 +82,18 @@ export default class ReactWrapper extends Component {
                                     render={(props) => (
                                         window.user.superuser === true
                                         ? <DevicesCreate
+                                            deviceService={this.deviceService}
+                                            typeService={this.typeService}
+                                            userService={this.userService}
+                                            {...props} />
+                                        : <Redirect to='/admin' />
+                                    )}
+                                    exact={true} />
+                                <Route
+                                    path="/admin/devices/:id/edit"
+                                    render={(props) => (
+                                        window.user.superuser === true
+                                        ? <DevicesEdit
                                             deviceService={this.deviceService}
                                             typeService={this.typeService}
                                             userService={this.userService}

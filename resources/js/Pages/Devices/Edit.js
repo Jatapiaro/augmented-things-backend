@@ -6,7 +6,7 @@ import DeviceForm from '../../Components/Forms/DeviceForm';
 
 import { toast } from 'react-toastify';
 
-export default class Create extends Component {
+export default class Edit extends Component {
 
     state = {
         device: new Device(),
@@ -21,20 +21,38 @@ export default class Create extends Component {
     }
 
     componentWillMount() {
+        let id = this.props.match.params.id;
         Promise.all([
             this.props.userService.index(),
-            this.props.typeService.index()
+            this.props.typeService.index(),
+            this.props.deviceService.show(id)
         ])
-        .then((res) => {
-            this.setState({
-                users: res[0],
-                types: res[1]
+            .then((res) => {
+                let users = res[0];
+                let device = this.state.device;
+                device.fillFromResponse(res[2]);
+                console.log(device);
+                let places = [];
+                for (let i = 0; i < users.length; i++) {
+                    let usr = users[i];
+                    if (usr.id == device.user_id) {
+                        device.user_id = i;
+                        places = user.places;
+                        console.log(places);
+                        break;
+                    }
+                }
+                this.setState({
+                    users: users,
+                    types: res[1],
+                    device: device,
+                    places: places
+                });
+            })
+            .catch((err) => {
+                toast.error('¡Ha ocurrido un error!');
+                this.props.history.push('/admin/devices');
             });
-        })
-        .catch((err) => {
-            toast.error('¡Ha ocurrido un error!');
-            this.props.history.push('/admin/devices');
-        });
     }
 
     /**
@@ -59,7 +77,7 @@ export default class Create extends Component {
         let device = this.state.device;
         let index = device.user_id;
         device.user_id = (this.state.users[device.user_id]) ? this.state.users[device.user_id].id : '';
-        this.props.deviceService.store(device)
+        this.props.deviceService.update(device, device.id)
             .then((res) => {
                 this.props.history.push('/admin/devices');
                 toast.success("¡Se agregó el lugar con éxito!");
@@ -120,7 +138,7 @@ export default class Create extends Component {
     render() {
         return (
             <Form onSubmit={this.handleSubmit}>
-                <Card title="Crear dispositivo" submit={true} formSubmitButtonText="Crear dispositivo">
+                <Card title="Editar dispositivo" submit={true} formSubmitButtonText="Editar dispositivo">
                     <DeviceForm
                         device={this.state.device}
                         places={this.state.places}
@@ -129,6 +147,7 @@ export default class Create extends Component {
                         getError={this.getError}
                         onValueChange={this.onValueChange}
                         onUserChange={this.onUserChange}
+                        edit={true}
                     />
                 </Card>
             </Form>

@@ -39,6 +39,19 @@ class DeviceService {
     }
 
     /**
+     * Updates the $device with the $data
+     *
+     * @param  array $data
+     * @param  Device $device
+     * @return  App\Models\Device
+     */
+    public function update($data, Device $item) {
+        $this->repo->update($data['device'], $item->id);
+        $item->refresh();
+        return $item;
+    }
+
+    /**
      * Validate the given data using the validation book of the model
      *
      * @param  array $data

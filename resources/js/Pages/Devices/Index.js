@@ -73,7 +73,7 @@ export default class Index extends Component {
                                                 <Dropdown.Item
                                                     key={1}
                                                     onClick={
-                                                        () => this.props.history.push(`/admin/devices/${place.id}/edit`)
+                                                        () => this.props.history.push(`/admin/devices/${device.id}/edit`)
                                                     }>
                                                     <i className="fa fa-pencil" />
                                                     <span> Editar</span>
