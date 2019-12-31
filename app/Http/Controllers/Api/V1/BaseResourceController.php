@@ -72,6 +72,13 @@ class BaseResourceController extends BaseController implements ResourcesControll
     protected $jsonResource;
 
     /**
+     * Extra data to be appended to the resource
+     *
+     * @var array
+     */
+    protected $extraData;
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -88,6 +95,9 @@ class BaseResourceController extends BaseController implements ResourcesControll
      */
     public function store(Request $req) {
         $data = $this->validateRequest($req);
+        if (!empty($this->extraData)) {
+            $data = array_merge_recursive($data, $this->extraData);
+        }
         $item = $this->service->store($data);
         return $this->toJsonResource($item);
     }
@@ -100,9 +110,8 @@ class BaseResourceController extends BaseController implements ResourcesControll
      * @return \Illuminate\Http\Response
      */
     public function show(Request $req, $id) {
-        $data = [];
-        $data[$this->resource] = $this->repo->find($id);
-        return view($this->resourcePlural.'.show', ['data' => $data]);
+        $item = $this->repo->find($id);
+        return $this->toJsonResource($item);
     }
 
     /**
@@ -113,13 +122,13 @@ class BaseResourceController extends BaseController implements ResourcesControll
      * @return \Illuminate\Http\Response
      */
     public function update(Request $req, $id) {
-        /*$input = $this->validateRequest($req);
-        $data = [];
+        $input = $this->validateRequest($req);
+        if (!empty($this->extraData)) {
+            $input = array_merge_recursive($input, $this->extraData);
+        }
         $data[$this->resource] = $this->repo->find($id);
-        $this->service->update($input, $data[$this->resource]);
-        return redirect()
-            ->route($this->resourcePlural.'.edit', ['id' => $id])
-            ->with('status', 'El '.$this->resourceLocal.' se ha editado con éxito.');*/
+        $item = $this->service->update($input, $data[$this->resource]);
+        return $this->toJsonResource($item);
     }
 
     /**
@@ -130,10 +139,9 @@ class BaseResourceController extends BaseController implements ResourcesControll
      * @return \Illuminate\Http\Response
      */
     public function destroy(Request $req, $id) {
-        /*$this->repo->delete($id);
-        return redirect()
-            ->route('app.' . $this->resourcePlural. '.index')
-            ->with('status', 'El '.$this->resourceLocal.' se ha eliminado con éxito.');*/
+        $item = $this->repo->find($id);
+        $item->delete();
+        return $this->toJsonResource($item);
     }
 
     /**
@@ -163,7 +171,7 @@ class BaseResourceController extends BaseController implements ResourcesControll
      * @param mixed $data
      * @return Illuminate\Http\Resources\Json\Resource
      */
-    private function toJsonResource($data, $collection = false) {
+    protected function toJsonResource($data, $collection = false) {
         if ( $collection ) {
             return call_user_func(
                 $this->jsonResource .'::Collection',

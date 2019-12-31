@@ -13,4 +13,14 @@ class PlaceRepo extends BaseEloquentRepo implements PlaceRepoInterface
     public function __construct(Place $entity) {
         $this->model = $entity;
     }
+
+    /**
+     * Returns all the items on this repo
+     *
+     * @return collection
+     */
+    public function adminAll() {
+        return $this->model->all();
+    }
+
 }

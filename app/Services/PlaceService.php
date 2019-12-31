@@ -28,9 +28,21 @@ class PlaceService {
      * @return  App\Models\Place
      */
     public function store($data) {
-        $data['place']['user_id'] = Auth::user()->id;
         $this->validate($data);
         $item = $this->repo->create($data['place']);
+        return $item;
+    }
+
+    /**
+     * Updates the $place with the $data
+     *
+     * @param  array $data
+     * @param  Place $place
+     * @return  App\Models\Place
+     */
+    public function update($data, Place $item) {
+        $this->repo->update($data['place'], $item->id);
+        $item->refresh();
         return $item;
     }
 

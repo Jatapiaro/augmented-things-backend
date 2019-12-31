@@ -69,6 +69,13 @@ class Device extends Model
     }
 
     /**
+     * Declares the relationship between this device and his owner
+     */
+    public function user() {
+        return $this->belongsTo('App\Models\User');
+    }
+
+    /**
      * Returns an array that contains two indexes:
      * 'rules' for the validation
      * 'messages' messages given by the validation
@@ -85,7 +92,7 @@ class Device extends Model
                 'regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/'
             ),
             'device.longitude' => array(
-                'nullable',
+                'required',
                 'regex:/^[-]?((((1[0-7][0-9])|([0-9]?[0-9]))\.(\d+))|180(\.0+)?)$/'
             ),
             'device.altitude' => 'required|numeric',

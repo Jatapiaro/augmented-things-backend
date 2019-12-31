@@ -77,6 +77,7 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'superuser' => 'boolean'
     ];
 
     /**
@@ -86,6 +87,15 @@ class User extends Authenticatable
      */
     public function devices() {
         return $this->hasMany('App\Models\Device');
+    }
+
+    /**
+     * Relationship between the user and his places
+     *
+     * @return App\Models\Place
+     */
+    public function places() {
+        return $this->hasMany('App\Models\Place');
     }
 
     /**

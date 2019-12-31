@@ -150,6 +150,203 @@
                 ]
             }
         },
+        "/api/v1/admin-devices": {
+            "get": {
+                "tags": [
+                    "Devices"
+                ],
+                "summary": "Shows all the user devices",
+                "responses": {
+                    "200": {
+                        "description": "Shows all the users devices",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "passport": [
+                            "*"
+                        ]
+                    }
+                ]
+            }
+        },
+        "/api/v1/devices/{device}": {
+            "get": {
+                "tags": [
+                    "Devices"
+                ],
+                "summary": "Shows the specified device",
+                "parameters": [
+                    {
+                        "name": "device",
+                        "in": "path",
+                        "description": "ID of the device",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Shows the specified device",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "passport": [
+                            "*"
+                        ]
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Devices"
+                ],
+                "summary": "Updates a device",
+                "parameters": [
+                    {
+                        "name": "device",
+                        "in": "path",
+                        "description": "Device to be updated",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Data of the device to be updated",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "device": {
+                                        "type": "object",
+                                        "$ref": "#/components/schemas/Device"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Device that was updated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "passport": [
+                            "*"
+                        ]
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Devices"
+                ],
+                "summary": "Deletes a device",
+                "parameters": [
+                    {
+                        "name": "device",
+                        "in": "path",
+                        "description": "Device to be deleted",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Device that was deleted",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "passport": [
+                            "*"
+                        ]
+                    }
+                ]
+            }
+        },
         "/api/v1/me": {
             "get": {
                 "tags": [
@@ -274,6 +471,485 @@
                     }
                 ]
             }
+        },
+        "/api/v1/admin-places": {
+            "get": {
+                "tags": [
+                    "Places"
+                ],
+                "summary": "Shows all the places",
+                "responses": {
+                    "200": {
+                        "description": "Shows all the users places",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "passport": [
+                            "*"
+                        ]
+                    }
+                ]
+            }
+        },
+        "/api/v1/places/{place}": {
+            "get": {
+                "tags": [
+                    "Places"
+                ],
+                "summary": "Shows the specified place",
+                "parameters": [
+                    {
+                        "name": "place",
+                        "in": "path",
+                        "description": "ID of the place",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Shows the specified place",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "passport": [
+                            "*"
+                        ]
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Places"
+                ],
+                "summary": "Updates a place",
+                "parameters": [
+                    {
+                        "name": "place",
+                        "in": "path",
+                        "description": "Place to be updated",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Data of the place to be updated",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "place": {
+                                        "type": "object",
+                                        "$ref": "#/components/schemas/Place"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Place that was updated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "passport": [
+                            "*"
+                        ]
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Places"
+                ],
+                "summary": "Deletes a place",
+                "parameters": [
+                    {
+                        "name": "place",
+                        "in": "path",
+                        "description": "Place to be deleted",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Place that was deleted",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "passport": [
+                            "*"
+                        ]
+                    }
+                ]
+            }
+        },
+        "/api/v1/types": {
+            "get": {
+                "tags": [
+                    "Types"
+                ],
+                "summary": "Shows the system types",
+                "responses": {
+                    "200": {
+                        "description": "Shows the system types",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "passport": [
+                            "*"
+                        ]
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Types"
+                ],
+                "summary": "Register a new device type",
+                "requestBody": {
+                    "description": "Type that needs to be stored",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "type": {
+                                        "type": "object",
+                                        "$ref": "#/components/schemas/Type"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Device that was registered.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "passport": [
+                            "*"
+                        ]
+                    }
+                ]
+            }
+        },
+        "/api/v1/types/{type}": {
+            "get": {
+                "tags": [
+                    "Types"
+                ],
+                "summary": "Shows the specified type",
+                "parameters": [
+                    {
+                        "name": "type",
+                        "in": "path",
+                        "description": "ID of the type",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "abcdefghijklmnopq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Shows the specified type",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "passport": [
+                            "*"
+                        ]
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Types"
+                ],
+                "summary": "Updates a type",
+                "parameters": [
+                    {
+                        "name": "type",
+                        "in": "path",
+                        "description": "Type to update",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Type to be updated",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "type": {
+                                        "type": "object",
+                                        "$ref": "#/components/schemas/Type"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Type that was updated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "passport": [
+                            "*"
+                        ]
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Types"
+                ],
+                "summary": "Deletes a type",
+                "parameters": [
+                    {
+                        "name": "type",
+                        "in": "path",
+                        "description": "Type to be deleted",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Type that was deleted",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "passport": [
+                            "*"
+                        ]
+                    }
+                ]
+            }
+        },
+        "/api/v1/users": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Shows the users of the system",
+                "responses": {
+                    "200": {
+                        "description": "Shows the current users of the system",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "passport": [
+                            "*"
+                        ]
+                    }
+                ]
+            }
         }
     },
     "components": {
@@ -328,7 +1004,7 @@
                 "type": "object"
             },
             "Place": {
-                "title": "Places",
+                "title": "Place",
                 "description": "Places registered by the user",
                 "required": [
                     "name",
@@ -431,7 +1107,7 @@
                         "schema": "User",
                         "description": "Secret key of the client id",
                         "type": "string",
-                        "example": "WxqvsSsx0IPUkNybr7q2wdN6LI6hweujSNgLCurK"
+                        "example": "8B3voLCXrABoDGMmhDMig7topVVc8bqvocW1uF1r"
                     }
                 },
                 "type": "object"
@@ -470,6 +1146,14 @@
         {
             "name": "Places",
             "description": "Operations related with the user places"
+        },
+        {
+            "name": "Types",
+            "description": "Operations related with the valid devices of the system"
+        },
+        {
+            "name": "Users",
+            "description": "Operations related with the users of the system"
         }
     ]
 }

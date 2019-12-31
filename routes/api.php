@@ -32,11 +32,23 @@ Route::group([
          * Devices Routes
          */
         Route::apiResource('/devices', 'DeviceController');
+        Route::get('/admin-devices', 'DeviceController@adminIndex')->name('devices.index.admin');
 
         /**
          * Places Routes
          */
         Route::apiResource('/places', 'PlaceController');
+        Route::get('/admin-places', 'PlaceController@adminIndex')->name('places.index.admin');
+
+        /**
+         * Types Routes
+         */
+        Route::apiResource('/types', 'TypeController');
+
+        /**
+         * Users Routes
+         */
+        Route::apiResource('/users', 'UserController');
 
     });
 

@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\User as UserResource;
 
 class Place extends JsonResource
 {
@@ -14,6 +15,8 @@ class Place extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        $data = parent::toArray($request);
+        $data['user'] = new UserResource($this->user);
+        return $data;
     }
 }

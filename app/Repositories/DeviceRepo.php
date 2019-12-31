@@ -25,4 +25,13 @@ class DeviceRepo extends BaseEloquentRepo implements DeviceRepoInterface
         return Auth::user()->devices;
     }
 
+    /**
+     * Returns all the items on this repo
+     *
+     * @return collection
+     */
+    public function adminAll() {
+        return $this->model->all();
+    }
+
 }

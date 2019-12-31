@@ -4,7 +4,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * @OA\Schema(type="object", title="Places", description="Places registered by the user", required={"name", "latitude", "longitude", "altitude"})
+ * @OA\Schema(type="object", title="Place", description="Places registered by the user", required={"name", "latitude", "longitude", "altitude"})
  * @OA\Property(
  *     type="string",
  *     description="Name of the place",
@@ -65,7 +65,7 @@ class Place extends Model
                 'regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/'
             ),
             'place.longitude' => array(
-                'nullable',
+                'required',
                 'regex:/^[-]?((((1[0-7][0-9])|([0-9]?[0-9]))\.(\d+))|180(\.0+)?)$/'
             ),
             'place.altitude' => 'required|numeric',

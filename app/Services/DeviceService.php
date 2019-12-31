@@ -28,7 +28,6 @@ class DeviceService {
      * @return  App\Models\Device
      */
     public function store($data) {
-        $data['device']['user_id'] = Auth::user()->id;
         $this->validate($data);
         $item = $this->repo->create($data['device']);
 
@@ -36,6 +35,19 @@ class DeviceService {
         $type->used = true;
         $type->save();
 
+        return $item;
+    }
+
+    /**
+     * Updates the $device with the $data
+     *
+     * @param  array $data
+     * @param  Device $device
+     * @return  App\Models\Device
+     */
+    public function update($data, Device $item) {
+        $this->repo->update($data['device'], $item->id);
+        $item->refresh();
         return $item;
     }
 
