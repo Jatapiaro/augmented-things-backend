@@ -49,6 +49,13 @@ class Place extends Model
     }
 
     /**
+     * Declares the relationship between this place and his devices
+     */
+    public function devices() {
+        return $this->hasMany('App\Models\Device');
+    }
+
+    /**
      * Returns an array that contains two indexes:
      * 'rules' for the validation
      * 'messages' messages given by the validation
